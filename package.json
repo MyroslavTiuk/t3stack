@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install",
+    "tsc": "turbo run tsc",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "db:generate": "turbo run db:generate",
+    "db:start": "docker compose -f ./local-db.yml up",
+    "db:stop": "docker compose -f ./local-db.yml down"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.5.1",
+    "turbo": "^1.9.4"
+  },
+  "packageManager": "pnpm@7.15.0",
+  "name": "trader-tools",
+  "lint-staged": {
+    "*.{js,js,jsx,ts,tsx,css,md}": "prettier --write"
+  }
+}

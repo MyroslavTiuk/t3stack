@@ -1,0 +1,46 @@
+@import '../../../../theme/functions';
+@import '../../../primitives/Input/Input-style.module';
+@import '../../../primitives/Typo/Typo.module';
+
+.betaOptOutCtnr {
+  padding: $pad-2 $pad;
+  > ._betaOptOut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: $bkpt-desktop-large;
+    > ._backTo {
+      &:before {
+        content: '';
+        display: inline-block;
+        margin-left: 2px;
+        margin-right: 3px;
+        margin-bototm: 1px;
+        width: 0.5em;
+        height: 0.5em;
+        transform: rotate(-45deg);
+        border-top: 1.5px solid $col-link;
+        border-left: 1.5px solid $col-link;
+      }
+    }
+  }
+  background-color: rgba($col-action, 0.2);
+}
+._arrow {
+  color: $col-guide;
+}
+
+.reasons > ._row {
+  @include marginVertical($pad-1-2);
+}
+
+.messageBox {
+  @extend .content-pragmatic;
+  @include input-style;
+  @include input-style-filled;
+  border: 1px solid $col-panel-contrast-a50;
+  padding: $pad-1-3 $pad-1-2;
+  width: 100%;
+  height: 6em;
+}

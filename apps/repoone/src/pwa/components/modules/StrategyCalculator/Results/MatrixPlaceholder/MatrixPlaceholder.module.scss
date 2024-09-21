@@ -1,0 +1,21 @@
+@import '../../../../../theme/functions';
+
+.main {
+  height: 540px;
+  padding: $pad;
+  background-color: $col-panel-contrast-a08;
+  flex-direction: column;
+}
+
+.placeholder-text {
+  text-align: center;
+  line-height: 167%;
+  margin-bottom: 20px;
+
+  @include desktop-small-plus {
+    max-width: 19em;
+  }
+}
+.button {
+  margin-top: 10px;
+}

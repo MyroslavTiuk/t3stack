@@ -1,0 +1,84 @@
+@import '../../theme/variables';
+@import '../../theme/functions';
+
+.container {
+  @include tablet-large-only {
+    padding: $pad-2 $pad-3;
+  }
+  @include desktop-small-plus {
+    padding: $pad-3 $pad-4;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:not(.--no-background) {
+    @include theme-light {
+      background-color: $col-light;
+    }
+  }
+
+  &.__col_contrast {
+    background-color: $col-panel-contrast-a12;
+  }
+}
+.contentInner {
+  width: 100%;
+  max-width: 1100px;
+
+  &:not(.--no-pad) {
+    @include paddingHorizontal($pad);
+    @include tablet-plus {
+      @include paddingHorizontal($pad-3);
+    }
+  }
+}
+
+.content {
+  min-height: 50vh;
+  padding-bottom: $pad-2;
+  @include tablet-large-plus {
+    padding-bottom: $pad-2;
+    &:not(.--no-pad) {
+      @include paddingHorizontal($pad-3);
+    }
+  }
+  margin: 0 auto;
+  @include theme-light {
+    @include mobile-only {
+      background-color: $col-light-dk1;
+    }
+    @include tablet-plus {
+      background-color: $col-light;
+    }
+  }
+  @include theme-dark {
+    background-color: $col-bg-dark-lt1;
+  }
+  &:not(.--full-width) {
+    max-width: 1280px;
+  }
+}
+.textContent {
+  max-width: 40em;
+  &.--centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.card--border-tab-plus {
+  @include tablet-large-plus {
+    border-radius: $card-border-radius;
+  }
+}
+
+.card--responsive-padding {
+  padding: $pad-2 $pad;
+  @include tablet-plus {
+    padding: $pad-2 $pad-2;
+  }
+}

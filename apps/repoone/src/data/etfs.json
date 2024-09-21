@@ -1,0 +1,5 @@
+[
+  { "symbol": "SPY", "name": "SPDR S&P 500" },
+  { "symbol": "QQQ", "name": "Invesco QQQ Trust, Series 1" },
+  { "symbol": "IWM", "name": "iShares Russell 2000 ETF1" }
+]

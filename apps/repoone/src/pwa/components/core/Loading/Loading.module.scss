@@ -1,0 +1,196 @@
+@import '../../../theme/functions';
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+$loading-bar-height: 3px;
+
+.loadingBar {
+  position: absolute;
+  height: $loading-bar-height;
+  z-index: $zidx-loading-bar /* +1 */;
+  top: $header-height;
+  @include tablet-to-tablet-large {
+    top: $header-height-md;
+  }
+  @include desktop-small-plus {
+    top: $header-height-lg;
+  }
+  left: 0;
+  width: 100%;
+
+  transform-origin: top left;
+
+  background-color: $col-quaternary-cyan;
+  box-shadow: -1px 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.--loading-1 {
+  width: 98%;
+  animation: placeboLoad1 8s linear;
+}
+.--loading-2 {
+  width: 98%;
+  animation: placeboLoad1 8s linear;
+}
+
+@keyframes placeboLoad1 {
+  0% {
+    transform: scaleX(0.03);
+  }
+  5% {
+    transform: scaleX(0.03);
+  }
+
+  8% {
+    transform: scaleX(0.08);
+  }
+  10% {
+    transform: scaleX(0.08);
+  }
+
+  12% {
+    transform: scaleX(0.12);
+  }
+  20% {
+    transform: scaleX(0.12);
+  }
+
+  25% {
+    transform: scaleX(0.6);
+  }
+  34% {
+    transform: scaleX(0.85);
+  }
+
+  35% {
+    transform: scaleX(0.88);
+  }
+  45% {
+    transform: scaleX(0.88);
+  }
+
+  46% {
+    transform: scaleX(0.94);
+  }
+  65% {
+    transform: scaleX(0.94);
+  }
+
+  66% {
+    transform: scaleX(0.96);
+  }
+  80% {
+    transform: scaleX(0.96);
+  }
+
+  81% {
+    transform: scaleX(0.97);
+  }
+  86% {
+    transform: scaleX(0.97);
+  }
+
+  87% {
+    transform: scaleX(0.98);
+  }
+  99% {
+    transform: scaleX(0.98);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes placeboLoad2 {
+  0% {
+    transform: scaleX(0.03);
+  }
+  8% {
+    transform: scaleX(0.03);
+  }
+
+  10% {
+    transform: scaleX(0.07);
+  }
+  18% {
+    transform: scaleX(0.07);
+  }
+
+  19% {
+    transform: scaleX(0.12);
+  }
+  20% {
+    transform: scaleX(0.12);
+  }
+
+  21% {
+    transform: scaleX(0.3);
+  }
+  27% {
+    transform: scaleX(0.3);
+  }
+
+  31% {
+    transform: scaleX(0.52);
+  }
+  32% {
+    transform: scaleX(0.52);
+  }
+
+  37% {
+    transform: scaleX(0.88);
+  }
+  45% {
+    transform: scaleX(0.88);
+  }
+
+  46% {
+    transform: scaleX(0.94);
+  }
+  65% {
+    transform: scaleX(0.94);
+  }
+
+  66% {
+    transform: scaleX(0.96);
+  }
+  80% {
+    transform: scaleX(0.96);
+  }
+
+  81% {
+    transform: scaleX(0.97);
+  }
+  86% {
+    transform: scaleX(0.97);
+  }
+
+  87% {
+    transform: scaleX(0.98);
+  }
+  99% {
+    transform: scaleX(0.98);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.overlay {
+  animation: fadein 100ms;
+  position: fixed;
+  z-index: $zidx-loading-overlay;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $col-dark-overlay;
+}

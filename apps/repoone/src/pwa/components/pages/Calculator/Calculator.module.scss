@@ -1,0 +1,21 @@
+@import '../../../theme/variables';
+@import '../../../theme/functions';
+
+.content {
+  background-color: $col-light;
+  max-width: calc(100vw - var(--scrollbarWidth));
+}
+
+.headerLink {
+  @include paddingVertical($pad-1-2);
+  @include paddingHorizontal($pad-1-2);
+  margin-left: -$pad-1-2;
+  margin-right: -$pad-1-2;
+  display: flex;
+  align-items: center;
+  color: $col-content-on-dark !important;
+
+  > ._icon {
+    margin-right: 0.1em;
+  }
+}

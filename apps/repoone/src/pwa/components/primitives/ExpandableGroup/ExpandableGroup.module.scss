@@ -1,0 +1,28 @@
+@import '../../../theme/variables';
+@import '../../../theme/functions';
+
+.main {
+}
+
+.show-label {
+  color: $col-gray-50;
+}
+
+.show-item-spacer {
+  &:not(:last-of-type):after {
+    content: '/';
+    color: $col-gray-72;
+  }
+  &:not(:first-of-type) > .show-item {
+    padding-left: 0.4em;
+  }
+}
+.show-item {
+  cursor: pointer;
+  @include paddingVertical(0.5em);
+  padding-right: 0.4em;
+}
+
+.group-content {
+  @include paddingVertical($pad-1-4);
+}

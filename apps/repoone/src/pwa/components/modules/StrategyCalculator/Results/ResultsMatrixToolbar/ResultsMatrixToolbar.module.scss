@@ -1,0 +1,101 @@
+@import '../../../../../theme/common';
+
+@mixin arrow($angle) {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  &:after {
+    position: absolute;
+    left: 25%;
+    $sz: 4px;
+    top: calc(50% - #{$sz});
+    content: '';
+    border-bottom: $sz solid $col-clickable-icon;
+    border-right: $sz solid $col-clickable-icon;
+    border-top: $sz solid transparent;
+    border-left: $sz solid transparent;
+    transform: rotate($angle);
+  }
+}
+
+.container {
+  justify-content: space-between;
+  @include tablet-plus {
+    justify-content: flex-start;
+  }
+}
+
+.leftArrow {
+  @include arrow(135deg);
+  @include clickable;
+  &:after {
+    left: 40%;
+  }
+}
+
+.rightArrow {
+  @include arrow(315deg);
+  @include clickable;
+  &:after {
+    left: 40%;
+  }
+}
+
+.plusMinusButton {
+  @include clickable;
+  width: 28px;
+  height: 28px;
+  color: $col-clickable-icon;
+  font-weight: $font-weight-black;
+  font-size: toRem(20px);
+}
+
+.expiryCtnr {
+  margin-left: $pad-1-2;
+  > ._expiry {
+    height: 28px;
+    margin-left: -$pad-1-3;
+    > ._expiryText {
+      min-width: 5em;
+      text-align: center;
+    }
+  }
+}
+.strikeCtnr {
+  > ._strike {
+    margin-left: -$pad-1-3;
+  }
+}
+
+.shifterCurValText {
+  @media (max-width: 479px) {
+    display: none;
+  }
+}
+
+.disabledWrapper {
+  opacity: $col-opacity-pending;
+}
+
+.matrixContentToggleButton {
+  .iconContainer {
+    cursor: pointer;
+    &.--active {
+      background-color: $col-panel-contrast-a12;
+    }
+    &:hover {
+      background-color: $col-action-a12;
+    }
+  }
+  ._icon {
+    width: 20px;
+    height: 20px;
+
+    &:not(.--active) {
+      color: $col-panel-contrast-dk24;
+    }
+    &.--active {
+      color: $col-action;
+    }
+  }
+}

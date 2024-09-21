@@ -1,0 +1,52 @@
+version: "3"
+
+volumes:
+  optionscout_postgres_data: {}
+  trackgreeks_postgres_data: {}
+  opcalc_postgres_data: {}
+
+services:
+  optionscout:
+    image: postgres:15.2
+    container_name: optionscout_postgres
+    volumes:
+      - optionscout_postgres_data:/var/lib/postgresql/data:Z
+
+    # make sure these values match the ones in your .env.local and/or .env file
+    # e.g. OPTIONSCOUT_DATABASE_URL=postgresql://me:secure_pwd@127.0.0.1:5432/optionscout
+    environment:
+      - POSTGRES_DB=optionscout
+      - POSTGRES_USER=me
+      - POSTGRES_PASSWORD=secure_pwd
+    ports:
+      - "5432:5432"
+
+  trackgreeks:
+    image: postgres:15.2
+    container_name: trackgreeks_postgres
+    volumes:
+      - trackgreeks_postgres_data:/var/lib/postgresql/data:Z
+
+    # make sure these values match the ones in your .env.local and/or .env file
+    # e.g. TRACKGREEKS_DATABASE_URL=postgresql://me:my_password@127.0.0.1:5433/journal
+    environment:
+      - POSTGRES_DB=journal
+      - POSTGRES_USER=me
+      - POSTGRES_PASSWORD=my_password
+    ports:
+      - "5433:5432"
+
+  opcalc:
+    image: postgres:15.2
+    container_name: opcalc_postgres
+    volumes:
+      - opcalc_postgres_data:/var/lib/postgresql/data:Z
+
+    # make sure these values match the ones in your .env.local and/or .env file
+    # e.g. OPCALC_DATABASE_URL=postgresql://me:my_password@127.0.0.1:5434/opcalc
+    environment:
+      - POSTGRES_DB=opcalc
+      - POSTGRES_USER=me
+      - POSTGRES_PASSWORD=my_password
+    ports:
+      - "5434:5432"

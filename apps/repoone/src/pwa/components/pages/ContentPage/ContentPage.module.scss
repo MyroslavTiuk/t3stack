@@ -1,0 +1,51 @@
+@import 'src/pwa/theme/common';
+@import '../../primitives/Typo/Typo.module';
+
+.card {
+  @include mobile-only {
+    padding: $pad $mobile-horizontal-padding;
+  }
+  @include tablet-to-tablet-large {
+    padding: $pad $pad $pad-2 $pad-2;
+  }
+  @include desktop-small-plus {
+    padding: $pad-3 $pad-2 $pad-3 $pad-4;
+  }
+}
+.contentBlock {
+  position: relative;
+
+  > div {
+    padding: 0 !important;
+  }
+
+  p {
+    max-width: 38em;
+    @include content(true);
+  }
+  h1 {
+    @include h1(true);
+  }
+  h2 {
+    @include h2(true);
+  }
+  h3 {
+    @include h3(true);
+  }
+  h4 {
+    @include h4(true);
+  }
+  li {
+    @include content(true);
+    list-style: disc;
+    margin-left: $pad-2;
+    margin-bottom: 0.1em !important;
+  }
+  img {
+    max-width: calc(100vw - #{2 * ($pad-2 - $pad)} - var(--scrollbarWidth));
+  }
+  > :global(._imgCtnr) {
+    text-align: center;
+    @include marginHorizontal(-#{$pad-2 - $pad});
+  }
+}

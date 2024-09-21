@@ -1,0 +1,62 @@
+@import '../../../../theme/common';
+
+@import '../../../primitives/Typo/Typo.module';
+
+.calcMenu {
+  overflow: visible;
+  background-color: $col-light;
+  @include mobile-only {
+    margin-top: $pad-2;
+  }
+
+  > ._padded {
+    padding-bottom: #{$pad / 2};
+    &:not(.--full) {
+      align-items: flex-end;
+    }
+    &.--full {
+      align-items: flex-start;
+      min-height: calc(23px + 8.2em);
+      @include tablet-plus {
+        border-bottom: 1px solid $col-panel-contrast-a20;
+      }
+    }
+    > ._calcs {
+      > tbody > tr > td {
+        > ._text {
+          display: block;
+          white-space: nowrap;
+          @extend .content-pragmatic;
+          @include clickable-text--subtle;
+          @include paddingVertical($pad-1-4);
+
+          &.--selected {
+            position: relative;
+            &:before {
+              position: absolute;
+              left: -0.7em;
+              top: 41%;
+              content: '';
+              @include triangle('right', currentColor, 4px, 6px);
+            }
+            font-weight: $font-weight-semibold;
+          }
+        }
+        &:not(:last-child) {
+          padding-right: $pad;
+        }
+      }
+    }
+    > ._actions {
+      align-self: flex-end;
+    }
+  }
+}
+
+.closeIcon {
+  color: $col-gray-72;
+}
+
+.openIcon {
+  @include triangle('bottom', $col-link, toRem(4px));
+}

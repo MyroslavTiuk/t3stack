@@ -1,0 +1,4 @@
+export enum CHAIN_COLUMN_CHOICE {
+  SIMPLE = 'SIMPLE',
+  DETAILS = 'DETAILS',
+}

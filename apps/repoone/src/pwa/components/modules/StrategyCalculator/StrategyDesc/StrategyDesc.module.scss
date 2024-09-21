@@ -1,0 +1,33 @@
+@import '../../../../theme/functions';
+@import '../../../primitives/Typo/Typo.module';
+
+.stratDescCtnr {
+  position: relative;
+  ._closeIcon {
+    @include clickable;
+    position: absolute;
+    top: $pad-1-3;
+    right: $pad-1-3;
+  }
+  &.--panel ._desc {
+    background-color: $col-panel;
+    padding: {
+      left: $pad;
+      right: $pad-2;
+    }
+  }
+  ._desc {
+    @include paddingVertical($pad-1-2);
+    > p {
+      @extend .content-pragmatic--anemic;
+      color: transparentize($col-content, 0.15);
+      line-height: 142%;
+
+      + p {
+        margin-top: 0.67em;
+      }
+    }
+  }
+
+  margin-bottom: $pad;
+}

@@ -1,0 +1,202 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../client"
+  previewFeatures = ["views"]
+  binaryTargets   = ["native", "rhel-openssl-1.0.x", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("TRACKGREEKS_DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? // @db.Text
+  access_token      String? // @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? // @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                 String              @id @default(cuid())
+  name               String?
+  email              String?             @unique
+  emailVerified      DateTime?
+  image              String?
+  accounts           Account[]
+  sessions           Session[]
+  TDAmeritradeToken  TDAmeritradeToken?
+  Strategy           Strategy[]
+  stripeCustomerId   String?
+  subscriptionActive Boolean?
+  PublicPortfolio    PublicPortfolio[]
+  OptionTransaction  OptionTransaction[]
+  EquityTransaction  EquityTransaction[]
+  CsvFile            Csv[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum TransactionSource {
+  TdAmeritrade
+  Manual
+  Csv
+}
+
+model TDAmeritradeToken {
+  id                    String    @id @default(cuid())
+  lastSync              DateTime? @db.Timestamptz(6)
+  accountIds            String[]
+  mainAccountId         String?
+  accessToken           String
+  refreshToken          String
+  expiresIn             DateTime  @db.Timestamptz(6)
+  refreshTokenExpiresIn DateTime? @db.Timestamptz(6)
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id])
+}
+
+enum Position {
+  Short
+  Long
+}
+
+enum OptionAction {
+  Buy
+  Sell
+  Expire
+  Assign
+}
+
+enum OpenClose {
+  Open
+  Close
+}
+
+enum OptionType {
+  Call
+  Put
+}
+
+model OptionTransaction {
+  id                  String            @id @default(cuid())
+  userId              String
+  user                User              @relation(fields: [userId], references: [id])
+  source              TransactionSource
+  sourceTransactionId String?
+  underlyingSymbol    String
+  transactionDate     DateTime          @db.Timestamptz(6)
+  netPrice            Float
+  quantity            Float
+  action              OptionAction
+  openClose           OpenClose?
+  optionType          OptionType
+  expirationDate      DateTime          @db.Timestamptz(6)
+  strikePrice         Float
+  fees                Float
+  description         String?
+  dateAdded           DateTime          @db.Timestamptz(6)
+
+  // TD Ameritrade's expiry/assignment transactions only include cusips, not symbols
+  cusip String?
+
+  // currently we cannot use PostgreSQL's date function in prisma queries, see https://github.com/prisma/prisma/issues/5560
+  // so we also store them as epoch values to be able to filter by date
+  transactionDateEpoch BigInt
+  expirationDateEpoch  BigInt
+  dateAddedEpoch       BigInt
+  strategies           Strategy[]
+}
+
+model EquityTransaction {
+  id                  String            @id @default(cuid())
+  userId              String
+  user                User              @relation(fields: [userId], references: [id])
+  source              TransactionSource
+  sourceTransactionId String?
+  symbol              String
+  transactionDate     DateTime          @db.Timestamptz(6)
+  netPrice            Float
+  quantity            Float
+  position            Position
+  openClose           OpenClose?
+  fees                Float
+  description         String?
+  dateAdded           DateTime          @db.Timestamptz(6)
+
+  // currently we cannot use PostgreSQL's date function in prisma queries, see https://github.com/prisma/prisma/issues/5560
+  // so we also store them as epoch values to be able to filter by date
+  transactionDateEpoch BigInt
+  dateAddedEpoch       BigInt
+
+  strategies Strategy[]
+}
+
+model Strategy {
+  id                 String              @id @default(cuid())
+  userId             String
+  user               User                @relation(fields: [userId], references: [id])
+  optionTransactions OptionTransaction[]
+  equityTransactions EquityTransaction[]
+  startDate          DateTime?            @db.Timestamptz(6)
+  endDate            DateTime?           @db.Timestamptz(6)
+  description        String?
+  tradingStrategy    TradingStrategy
+
+  // currently we cannot use PostgreSQL's date function in prisma queries, see https://github.com/prisma/prisma/issues/5560
+  // so we also store them as epoch values to be able to filter by date
+  startDateEpoch BigInt?
+  endDateEpoch   BigInt?
+}
+
+enum TradingStrategy {
+  BuyAndHold
+  ShortAndHold
+  BuyAndSell
+  ShortAndBuy
+  CoveredCall
+  LongCallSpread
+  LongPutSpread
+  ShortCallSpread
+  ShortPutSpread
+  Custom
+}
+
+model Csv {
+  id       String @id @default(cuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  fileName String
+}
+
+model PublicPortfolio {
+  userId      String @id
+  user        User   @relation(fields: [userId], references: [id])
+  portfolioId String @unique @default(cuid())
+}
+

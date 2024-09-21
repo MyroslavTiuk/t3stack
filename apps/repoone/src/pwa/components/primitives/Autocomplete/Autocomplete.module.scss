@@ -1,0 +1,155 @@
+@import '../../../theme/common';
+@import '../Typo/Typo.module';
+
+@import '../Input/Input-style.module';
+@import '../Input/Highlight-mixin.module';
+
+@mixin dropdown-indicator($sz) {
+  content: '';
+  cursor: default;
+  position: absolute;
+  top: calc(50% - #{$sz * 0.2});
+  right: 0;
+  @include triangle('bottom', $col-panel-contrast, $sz / 2);
+  z-index: #{$zidx-content - 1};
+}
+
+.autocomplete {
+  position: relative;
+  &.--no-free-entry {
+    cursor: default;
+  }
+  &:not(.--hide-notch).--has-options:after {
+    $sz: 10px;
+    @include dropdown-indicator($sz);
+    right: 2px;
+  }
+}
+
+.selectCtnr {
+  position: relative;
+
+  &:not(.--hide-notch).--has-options:after {
+    $sz: 10px;
+    @include dropdown-indicator($sz);
+  }
+  > ._currentValue {
+    position: relative;
+    @include input-style;
+    &.--placeholder {
+      color: $col-gray-72 !important;
+    }
+    &.--with-typo {
+      @include input-style-typo();
+    }
+    @include input-style-underlined;
+    @include inputHighlight;
+
+    > ._prefix {
+      @include inputPrefix;
+    }
+  }
+  > ._selectBox {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    z-index: $zidx-dropdowns + 1;
+    @include input-style();
+    &.--with-typo {
+      @include input-style-typo();
+    }
+    &:not([disabled]) {
+      @include input-style-underlined;
+    }
+    &[disabled] {
+      @include input-style-underlined--disabled;
+    }
+    border-radius: 0;
+    display: block;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+  }
+}
+
+.input {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+
+  &.--no-free-entry {
+    cursor: default;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  @include mobile-only {
+    top: 2.7rem;
+  }
+  z-index: $zidx-dropdowns;
+
+  &:not(.--direction-up):not(.--direction-middle) {
+    top: 1.9rem;
+  }
+  &.--direction-up {
+    bottom: 0;
+  }
+  &.--direction-middle {
+    bottom: 0;
+    transform: translateY(50%);
+  }
+  &.--default-dropdown {
+    > .dropdown-inner {
+      position: relative;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+    min-width: 100%;
+    font-size: toRem(14px);
+    @include tablet-plus {
+      font-size: toRem(16px);
+    }
+    @media (max-height: 600px) {
+      max-height: 12em;
+    }
+    @media (min-height: 601px) {
+      max-height: 16em;
+    }
+
+    @include paddingVertical($card-border-radius);
+    border-radius: $card-border-radius;
+    background-color: $col-light;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.row {
+  // todo: make compatible with dark theme, but also for SymbolLookup (on dark panel)
+  color: $col-content;
+  cursor: default;
+  white-space: nowrap;
+  &:not(.--custom-search-row) {
+    @extend .content-pragmatic--anemic;
+    padding: $pad-1-2;
+  }
+  &.--custom-search-row {
+    @extend .content-detail--anemic;
+    @include paddingHorizontal($pad-1-2);
+    @include paddingVertical($pad-1-3);
+    border-bottom: 1px solid $col-panel-contrast-a50;
+  }
+}
+
+// todo: this is not scoped and actually has conflicts (though Cascading is not causing problem)
+.--highlighted,
+.--highlighted.--match {
+  background-color: $col-lightblue-EBF1FF;
+}
+.--match {
+  font-weight: $font-weight-bold;
+}

@@ -1,0 +1,23 @@
+﻿@import '../../../theme/common';
+.container {
+  position: sticky;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  z-index: $zidx-content-overlay;
+
+  > ._feedback {
+    position: relative;
+    height: 0px;
+    > ._btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+.shadow {
+  @include box-shadow(3);
+}

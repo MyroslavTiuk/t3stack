@@ -1,0 +1,21 @@
+@import '../../../../../../theme/functions';
+@import '../../../../../primitives/Typo/Typo.module';
+
+.autocomplete {
+  width: toRem(65px);
+}
+
+.dropdown {
+  text-align: left;
+  right: 0;
+  left: initial !important;
+}
+
+.input {
+  text-align: center;
+  padding-right: $pad-1-2;
+  @extend .content-field-label-inline--anemic;
+  &:focus {
+    outline: none;
+  }
+}

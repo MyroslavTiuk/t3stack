@@ -1,0 +1,104 @@
+@import '../../../theme/variables';
+@import '../../../theme/functions';
+@import '../Typo/Typo.module';
+
+@import 'Highlight-mixin.module';
+@import 'Input-style.module';
+
+.input-ctnr {
+  position: relative;
+  transition: border-color $txn-swift;
+  z-index: $zidx-content;
+
+  @include theme-light {
+    &.--filled {
+      background-color: $col-light-dk1;
+    }
+  }
+  @include theme-dark {
+    &.--filled {
+      background-color: $col-bg-dark-ltr;
+    }
+    &:not(.--filled) {
+      > .input {
+        border-bottom: 1px solid $col-panel-contrast;
+      }
+    }
+  }
+
+  &.--disabled {
+    .prefix {
+      opacity: 0.5;
+    }
+  }
+}
+
+.input {
+  @include input-style();
+
+  &.--with-typo {
+    @include input-style-typo();
+  }
+  &.--disabled {
+    color: $col-content-dimmed;
+  }
+  &:not(.--disabled):not(.--no-highlight) {
+    @include inputHighlight();
+  }
+  max-width: 100%;
+  &.--no-prefix {
+    text-indent: $pad-1-2;
+  }
+
+  transition: box-shadow $txn-swift, border-color $txn-swift;
+
+  .input-ctnr.--filled > & {
+    &.--enabled {
+      @include input-style-filled;
+    }
+  }
+  .input-ctnr.--underline > & {
+    &.--enabled {
+      @include input-style-underlined;
+    }
+    &.--disabled {
+      @include input-style-underlined--disabled;
+    }
+  }
+  .input-ctnr.--outlined > & {
+    &.--disabled {
+      @include input-style-outlined--disabled;
+    }
+    &:not(.--disabled) {
+      @include input-style-outlined;
+    }
+  }
+}
+
+.prefix {
+  @include inputPrefix;
+  margin:5px 5px 0;
+}
+
+.icon-ctnr {
+  position: absolute;
+  &:not(.--pre) {
+    right: 3px;
+  }
+  &.--pre {
+    left: 3px;
+  }
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.error-text {
+  padding-left: $pad-1-4;
+  margin-top: 0.2em;
+}
+
+.--width-full {
+  width: 100%;
+}

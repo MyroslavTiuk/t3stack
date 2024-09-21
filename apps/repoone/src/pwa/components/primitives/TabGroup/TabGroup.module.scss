@@ -1,0 +1,44 @@
+@import '../../../theme/common';
+
+$shadow-color: rgba($col-bg-dark, 0.08);
+
+.tabCtnr {
+  display: flex;
+  align-items: center;
+  padding: {
+    left: $pad-1-3;
+    right: $mobile-horizontal-padding;
+  }
+  padding-top: $pad-1-4;
+  border-bottom: 2px solid $col-panel-contrast-a12;
+
+  > ._tab {
+    @include paddingHorizontal($pad-1-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    height: #{$mobile-strat-nav-height - $pad-1-3};
+    margin-bottom: -2px;
+    transition: background-color $txn-swift;
+    opacity: 0.8;
+    font-family: $font-content;
+    font-size: $font-size-content-pragmatic;
+    font-weight: $font-weight-medium;
+
+    &.--selected {
+      opacity: 1;
+      border-bottom-color: $col-secondary-orange;
+    }
+    &.--disabled {
+      opacity: 0.4;
+      &.--selected {
+        border-bottom-color: $col-gray-50-a40;
+      }
+    }
+    :not(.--selected) {
+      @include clickable;
+    }
+  }
+}

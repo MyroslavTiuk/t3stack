@@ -1,0 +1,4 @@
+.container.--side-by-side>._label {
+  display: flex;
+  align-items: baseline;
+}

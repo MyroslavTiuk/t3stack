@@ -1,0 +1,320 @@
+@import '../../../theme/common';
+@import '../Typo/Typo.module';
+
+.container {
+  position: relative;
+}
+
+@mixin showing {
+  z-index: $zidx-tooltips;
+  visibility: visible;
+  opacity: 1;
+  transition: opacity $txn-slow $txn-delay;
+}
+
+.tooltip {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $txn-swift;
+  @include touch-screen {
+    .container:hover > &.--show-on-hover:not(.--no-touch) {
+      @include showing;
+    }
+  }
+  @include non-touch-screen {
+    .container:hover > &.--show-on-hover {
+      @include showing;
+    }
+  }
+  &.--showing {
+    @include showing;
+  }
+  border-radius: $card-border-radius;
+  &:not(.--strong) {
+    background-color: $col-panel-contrast-dk12;
+  }
+  &.--strong {
+    background-color: $col-light;
+    border: 1px solid $col-secondary-orange;
+  }
+  padding: $pad-1-2;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+
+  $spaceBetween: $pad-1-2;
+  &.--pos-top {
+    top: 0;
+    transform: translateY(calc(-100% - #{$spaceBetween})) translateX(-50%);
+    left: 50%;
+    &:after {
+      position: absolute;
+      bottom: -#{$spaceBetween - 1px};
+      left: calc(50% - #{$pad / 2});
+      @include triangle(
+        'bottom',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+  &.--pos-right {
+    right: 0;
+    transform: translateX(calc(100% + #{$spaceBetween})) translateY(-50%);
+    top: 50%;
+    &:after {
+      position: absolute;
+      left: -#{$spaceBetween - 1px};
+      top: calc(50% - #{$pad / 2});
+      @include triangle(
+        'left',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+  &.--pos-left {
+    left: 0;
+    transform: translateX(calc(-100% - #{$spaceBetween})) translateY(-50%);
+    top: 50%;
+    &:after {
+      position: absolute;
+      right: -#{$spaceBetween - 1px};
+      top: calc(50% - #{$pad / 2});
+      @include triangle(
+        'right',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+  &.--pos-bottom {
+    bottom: 0;
+    transform: translateY(calc(100% + #{$spaceBetween})) translateX(-50%);
+    left: 50%;
+
+    &:not(.--strong) {
+      &:before {
+        position: absolute;
+        bottom: -#{$spaceBetween - 1px};
+        left: calc(50% - #{$pad / 2});
+        @include triangle(
+          'bottom',
+          $col-panel-contrast-dk12,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+
+    &.--strong {
+      &:after {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        left: calc(50% - #{$pad / 2});
+        @include triangle('top', $col-light, #{$pad / 2}, $spaceBetween);
+      }
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween};
+        left: calc(50% - #{$pad / 2});
+        @include triangle(
+          'top',
+          $col-secondary-orange,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+  }
+  &.--pos-hardBottomLeft {
+    bottom: 0;
+    transform: translateY(calc(100% + #{$spaceBetween}));
+    right: 0;
+    &:not(.--strong) {
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        right: #{$pad};
+        @include triangle(
+          'top',
+          $col-panel-contrast-dk12,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+    &.--strong {
+      &:after {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        right: #{$pad};
+        @include triangle('top', $col-light, #{$pad / 2}, $spaceBetween);
+      }
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween};
+        right: #{$pad};
+        @include triangle(
+          'top',
+          $col-secondary-orange,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+  }
+  &.--pos-bottomLeft {
+    bottom: 0;
+    transform: translateY(calc(100% + #{$spaceBetween})) translateX(#{$pad-3});
+    right: 0;
+    &:not(.--strong) {
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        right: #{$pad-3};
+        @include triangle(
+          'top',
+          $col-panel-contrast-dk12,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+    &.--strong {
+      &:after {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        right: #{$pad-3};
+        @include triangle('top', $col-light, #{$pad / 2}, $spaceBetween);
+      }
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween};
+        right: #{$pad-3};
+        @include triangle(
+          'top',
+          $col-secondary-orange,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+  }
+  &.--pos-bottomRight {
+    bottom: 0;
+    transform: translateY(calc(100% + #{$spaceBetween})) translateX(#{$pad-3});
+    left: 0;
+    &:not(.--strong) {
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        left: #{$pad-3};
+        @include triangle(
+          'top',
+          $col-panel-contrast-dk12,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+    &.--strong {
+      &:after {
+        position: absolute;
+        top: -#{$spaceBetween - 1px};
+        left: #{$pad-3};
+        @include triangle('top', $col-light, #{$pad / 2}, $spaceBetween);
+      }
+      &:before {
+        position: absolute;
+        top: -#{$spaceBetween};
+        left: #{$pad-3};
+        @include triangle(
+          'top',
+          $col-secondary-orange,
+          #{$pad / 2},
+          $spaceBetween
+        );
+      }
+    }
+  }
+  &.--pos-hardTopLeft {
+    top: 0;
+    transform: translateY(calc(-100% - #{$spaceBetween}));
+    right: 0;
+    &:after {
+      position: absolute;
+      bottom: -#{$spaceBetween - 1px};
+      right: #{$pad};
+      @include triangle(
+        'bottom',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+  &.--pos-topLeft {
+    top: 0;
+    transform: translateY(calc(-100% - #{$spaceBetween})) translateX(#{$pad-3});
+    right: 0;
+    &:after {
+      position: absolute;
+      bottom: -#{$spaceBetween - 1px};
+      right: #{$pad-3};
+      @include triangle(
+        'bottom',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+  &.--pos-topRight {
+    top: 0;
+    transform: translateY(calc(-100% - #{$spaceBetween})) translateX(-#{$pad-3});
+    left: 0;
+    &:after {
+      position: absolute;
+      bottom: -#{$spaceBetween - 1px};
+      //left: 0;
+      left: #{$pad-3};
+      //transform: translateX(#{ $pad-3 });
+      @include triangle(
+        'bottom',
+        $col-panel-contrast-dk12,
+        #{$pad / 2},
+        $spaceBetween
+      );
+    }
+  }
+
+  &.--basic {
+    &:not(.--strong) {
+      @include theme-light {
+        color: $col-light;
+      }
+      @extend .content-caption--anemic;
+    }
+    &.--strong {
+      @include theme-light {
+        color: $col-content;
+      }
+      //font-weight: $font-weight-semibold;
+      @extend .content-pragmatic--anemic;
+    }
+  }
+
+  > ._link {
+    &,
+    &:hover,
+    &:visited {
+      color: $col-link-on-dark !important;
+    }
+    display: block;
+    padding-top: $pad-1-2;
+    align-self: flex-end;
+  }
+}

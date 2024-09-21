@@ -1,0 +1,97 @@
+﻿@import '../../../../../theme/common';
+
+@mixin dropdown-indicator($sz) {
+  content: '';
+  cursor: default;
+  position: absolute;
+  top: calc(50% - #{$sz * 0.2});
+  right: 0;
+  @include triangle('bottom', $col-panel-contrast, $sz / 2);
+  z-index: 5;
+}
+
+@mixin arrow($angle) {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  &:after {
+    position: absolute;
+    left: 25%;
+    $sz: 4px;
+    top: calc(50% - #{$sz});
+    content: '';
+    border-bottom: $sz solid slategray;
+    border-right: $sz solid slategray;
+    border-top: $sz solid transparent;
+    border-left: $sz solid transparent;
+    transform: rotate($angle);
+  }
+}
+
+.inputContainer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+
+  ._label {
+    > ._text {
+    }
+    color: $col-content;
+    .--disabled {
+      color: $col-content-disabled;
+    }
+    flex-direction: row;
+    align-items: center;
+    cursor: default;
+    > ._dropdownIndicator {
+      @include arrow(45deg);
+    }
+  }
+
+  .sliderCard {
+    p {
+      padding-top: 2.5px;
+    }
+    position: absolute;
+    width: 300px;
+    top: 2rem;
+    left: 0;
+    transform: translateX(-33%);
+    z-index: 999;
+  }
+
+  .valueDisplayContainer {
+    flex-direction: row;
+    font-size: 16px;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      padding: 0;
+    }
+  }
+}
+
+.ivValue {
+  &.--inactive {
+    opacity: $col-opacity-disabled;
+  }
+}
+
+.arrow {
+  color: $col-content-hint;
+}
+
+.resetBtn {
+  @include clickable;
+  @include resetIconTransformation;
+  position: absolute;
+  top: -$pad-1-3;
+  right: -$pad-1-3;
+  padding: $pad-1-2;
+  color: $col-clickable-icon;
+  font-size: $font-size-content-feature;
+  &.--unchanged {
+    visibility: hidden;
+  }
+}

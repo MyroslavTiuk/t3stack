@@ -1,0 +1,102 @@
+@import 'reset';
+@import 'variables';
+@import 'functions';
+@import 'common';
+@import 'util';
+@import 'flex';
+@import 'grid';
+@import 'toggleInputs';
+
+a,
+.text-link {
+  text-decoration: none;
+  @include clickable;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  @include theme-light--global {
+    color: $col-link;
+    &:hover {
+      color: lighten($col-link, 20%);
+    }
+    &:active {
+      color: lighten($col-link, 37%);
+    }
+    &:visited {
+      color: $col-link-visited;
+      &:hover {
+        color: lighten($col-link-visited, 20%);
+      }
+      &:active {
+        color: lighten($col-link-visited, 37%);
+      }
+    }
+  }
+  @include theme-dark--global {
+    color: $col-link-on-dark;
+    &:hover {
+      color: lighten($col-link-on-dark, 20%);
+    }
+    &:active {
+      color: lighten($col-link-on-dark, 37%);
+    }
+    &:visited {
+      color: $col-link-visited-on-dark;
+      &:hover {
+        color: lighten($col-link-visited-on-dark, 20%);
+      }
+      &:active {
+        color: lighten($col-link-visited-on-dark, 37%);
+      }
+    }
+  }
+}
+
+html,
+body {
+  font-size: #{$base-font-size * 14.25/15};
+  font-family: $font-content;
+  @include tablet-to-tablet-large {
+    font-size: #{$base-font-size * 14.75/15};
+  }
+  @include desktop-small-plus {
+    // font-size: as per mobile due to small side-bar
+  }
+  @include desktop-large-plus {
+    font-size: $base-font-size;
+  }
+}
+
+.opcalc-modal-open {
+  overflow: hidden;
+}
+
+.react-slidedown.opcalc-dropdown-slidedown {
+  transition-duration: $txn-swift;
+}
+
+.text {
+  @include theme-light--global {
+    color: $col-content;
+  }
+  @include theme-dark--global {
+    color: $col-content-on-dark;
+  }
+}
+
+.text-error {
+  color: $col-error;
+}
+
+.text-warning {
+  color: $col-warning;
+}
+
+.bold {
+  font-weight: $font-weight-semibold;
+}
+
+.text-success {
+  color: $col-success;
+}

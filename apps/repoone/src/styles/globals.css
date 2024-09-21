@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  visibility: hidden;
+}
+
+@media (max-width: 1250px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    visibility: visible;
+    bottom: 0 !important;
+    top: 100% !important;
+  }
+}
+
+.swiper-pagination-bullet {
+  background: #5787bb !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #2d78c8 !important;
+}
+
+.react-responsive-modal-modal {
+  top: 200px;
+}

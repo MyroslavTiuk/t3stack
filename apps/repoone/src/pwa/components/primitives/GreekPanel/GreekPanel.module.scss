@@ -1,0 +1,13 @@
+@import '../../../theme/common';
+
+.table {
+  width: 100%;
+  @include table;
+  th,
+  td {
+    @include paddingHorizontal($pad-1-2);
+    &:not(:first-child) {
+      border-left: $border-table;
+    }
+  }
+}

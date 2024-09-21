@@ -1,0 +1,36 @@
+﻿@import '../../../../../theme/common';
+
+.legendItem {
+  white-space: nowrap;
+
+  > ._vis {
+    width: 0.8em;
+    height: #{1 / $golden-ratio}em;
+    &:not(.--dotted) {
+      background-color: currentColor;
+    }
+    &.--dotted {
+      height: 0;
+      border-top: 2px dashed currentColor;
+    }
+  }
+}
+
+.resultsLineChart {
+  @include tablet-plus {
+    margin-right: #{$pad -$pad-1-2};
+  }
+  &.--legendStacked {
+    padding-bottom: $pad;
+  }
+}
+
+.legendContainer {
+  &:not(.--legendStacked) {
+    flex-direction: column;
+  }
+  &.--legendStacked {
+    //flex-direction: row;
+    margin-left: $pad;
+  }
+}

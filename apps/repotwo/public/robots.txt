@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://optionscout.com
+
+# Sitemaps
+Sitemap: https://optionscout.com/sitemap.xml

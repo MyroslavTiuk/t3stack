@@ -1,0 +1,695 @@
+@import "../../../theme/functions";
+@import "../../primitives/Card/Card.module";
+
+$hpad: $mobile-horizontal-padding;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$flat-shadow: inset -4px 0 2px -2px $shadow-color;
+
+.headerMenuItem {
+  display: flex;
+  align-items: center;
+  @include theme-any {
+    color: $col-link;
+  }
+  @include paddingVertical($header-item-padding-v);
+
+  &.--open {
+    opacity: $col-opacity-disabled;
+  }
+  ._icon {
+    margin-right: 2px;
+  }
+
+  // todo: replace with <Button ghost .../>
+  &:not(.--disabled) {
+    @include clickable;
+    &:hover {
+      background-color: rgba($col-content, 0.05);
+      border-radius: 5px;
+    }
+  }
+  &.--disabled {
+    cursor: default;
+    color: $col-content-disabled;
+  }
+
+  > ._iconSavedCalc {
+    font-size: 1.4em;
+    line-height: 0.714em;
+  }
+}
+
+.header {
+  background-color: $col-light;
+  padding-left: #{$pad - $pad-1-3};
+  @include paddingVertical($header-padding-v);
+  &.--bottomBorder {
+    border-bottom: 1px solid $col-panel-contrast-a20;
+  }
+}
+
+.savedCalcs {
+  background: $col-light-dk;
+  box-shadow: $flat-shadow;
+  padding-top: $pad-1-4;
+  &:not(.--open) {
+    transition: transform $txn-slow ease-in;
+    transform: translateX(-100%);
+  }
+  &.--open {
+    transition: transform $txn-slow ease-out;
+    transform: translateX(0);
+  }
+  > ._panel {
+    overflow-x: hidden;
+    > ._closeBtn {
+      position: absolute;
+      right: $pad;
+      top: $pad-1-2;
+    }
+    > ._theresMore {
+      height: $pad-2;
+      background-image: linear-gradient(
+        180deg,
+        #ffffff00 0%,
+        #ffffff33 10%,
+        #ffffffdd 70%,
+        #ffffffff 100%
+      );
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+}
+.clickableBackBtn {
+  margin: -$pad-1-2;
+  padding: $pad-1-2;
+  > ._iconCtnr {
+    width: 24px;
+    height: 24px;
+    &.--small {
+      width: 16px;
+      height: 16px;
+    }
+    transform: rotate(180deg);
+  }
+  color: $col-clickable-icon;
+  &:not(.--disabled) {
+    @include clickable;
+  }
+  &.--disabled {
+    opacity: 0.35;
+    color: $col-content-disabled;
+  }
+}
+
+@keyframes in-top {
+  0% {
+    transform: translateY(-#{$pad-3});
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.viewMenu {
+  position: relative;
+  @include mobile-only {
+    float: right;
+    margin-right: #{$mobile-horizontal-padding};
+  }
+  ._btn {
+    color: $col-link;
+    padding: $pad-1-2;
+    margin-right: -$pad-1-2;
+    @include tablet-plus {
+      padding: $pad-1-3;
+      margin-right: -$pad-1-3;
+    }
+
+    ._icon {
+      transform: rotate(90deg);
+    }
+  }
+  ._dropdown {
+    min-width: 14em;
+  }
+}
+
+.popSticky {
+  animation: in-top 400ms ease-in;
+  position: sticky;
+  z-index: $zidx-loading-overlay - 1;
+  top: $pad + $mobile-strat-nav-height;
+  > ._tooltip {
+    display: block;
+    height: 1px;
+    margin-top: -#{$pad};
+    .sticky {
+      height: 1px;
+      margin-top: -1px;
+    }
+  }
+}
+
+.saveSticky {
+  @extend .popSticky;
+  float: right;
+  margin-right: $pad-2;
+  height: 1px;
+}
+.mobEstimatesSticky {
+  @extend .popSticky;
+  top: $mobile-strat-nav-height;
+  margin-right: 30vw;
+  margin-top: 3px;
+  margin-bottom: -3px;
+  @include tablet-to-tablet-large {
+    display: none;
+  }
+  height: 0;
+}
+
+.calcSettingsMenuCtnr {
+  position: relative;
+  ._icon {
+    color: $col-clickable-icon;
+    height: #{$pad-1-2 * 2 + 24px};
+    width: #{$pad-1-2 * 2 + 24px};
+    padding: $pad-1-2;
+    @include clickable;
+  }
+  ._dropdown {
+    position: absolute;
+    @include menu-ctnr();
+    bottom: 0;
+    right: 0;
+    transform: translateY(100%);
+    min-width: 14em;
+    > ._item {
+      @include menu-item();
+    }
+    ._toggleNew {
+      @include size-stacked {
+        display: none;
+      }
+    }
+  }
+}
+
+.entrySideBar {
+  position: relative;
+  width: 338px;
+  @include desktop-large-plus {
+    width: 380px;
+  }
+  background: $col-light;
+}
+
+$rhs-bg-col: $col-light-dk1;
+
+.container {
+  position: relative;
+  &.--layout-mobile {
+    min-height: calc(100vh - #{$header-height});
+
+    .mobile-nav {
+      ._tab {
+        color: $col-link;
+      }
+      //position: sticky;
+      //top: $header-height; // 0 if main header is not sticky
+      z-index: $zidx-content-overlay - 12;
+
+      &.--style-simple-scroller {
+        background-color: $col-light;
+        @include paddingHorizontal($mobile-horizontal-padding);
+      }
+    }
+    .actionButtons {
+      margin-left: $pad;
+      > ._icon {
+        @include marginHorizontal($pad-1-3);
+
+        &.--disabled {
+          color: $col-content-disabled;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .savedSidePanel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: $zidx-content-overlay + 3;
+    }
+  }
+  &.--layout-stacked {
+    $side-bar-w-tab: 200px;
+    $side-bar-w-tab-new: 300px;
+    &.--layout-stacked--new-calc > ._savedCalcs {
+      width: $side-bar-w-tab-new;
+      min-width: $side-bar-w-tab-new;
+    }
+    > ._savedCalcs {
+      width: $side-bar-w-tab;
+      min-width: $side-bar-w-tab;
+      min-height: 100%;
+
+      > ._panel {
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+
+        > ._inner {
+          min-height: calc(100vh - #{$pad});
+        }
+      }
+    }
+
+    > ._content {
+      > ._ {
+        padding-left: #{($pad-2 + $pad-3) / 2};
+        > ._headerToolbar {
+          margin-left: -#{($pad-2 + $pad-3) / 2};
+        }
+        > ._adScrollCtnr {
+          > ._ad.--id-right-skyscraper {
+            position: sticky;
+            top: #{$pad-1-2};
+            float: right;
+          }
+          .__entryForm {
+            width: 100%;
+          }
+
+          max-width: calc(100vw - var(--scrollbarWidth));
+
+          ._calculation {
+            position: relative;
+            max-width: 100%;
+            // Note!: This was causing header to overlay the chain, but not sure why it was here in the first place
+            // z-index: $zidx-foreground;
+            > ._card {
+              &.--actualCard {
+                display: inline-block;
+              }
+
+              max-width: 100%;
+
+              ._item {
+                &.--id-right-skyscraper {
+                  @media (max-width: 968px) {
+                    margin-right: -$pad;
+                  }
+                  @media (max-width: #{968px - $pad}) {
+                    display: none;
+                  }
+                }
+
+                &.--id-entry-form {
+                  //width: calc(100vw - #{332px + 170px});
+                  //max-width: 680px;
+                }
+
+                &.--id-estimates {
+                  //width: 680px;
+                  max-width: 100%;
+
+                  ._widther {
+                    width: #{680px - (2 * $pad-2)};
+                    height: 1px;
+                  }
+                }
+              }
+            }
+
+            ._stratDescCtnr {
+              max-width: #{420px + $pad * 2};
+            }
+          }
+        }
+      }
+    }
+
+    > ._savedCalcs.--open + ._content {
+      margin-left: 0;
+      transition: margin-left $txn-slow ease-out, max-width $txn-slow ease-out;
+
+      max-width: calc(100vw - #{$side-bar-w-tab} - var(--scrollbarWidth));
+    }
+
+    > ._savedCalcs:not(.--open) + ._content {
+      transition: margin-left $txn-slow ease-in, max-width $txn-slow ease-in;
+
+      margin-left: -#{$side-bar-w-tab};
+      max-width: 100vw;
+    }
+  }
+  &.--layout-desktop {
+    // Cut-off for 728 wide top ad
+    $top-strip-cutoff-width: 1095px;
+    @media (min-width: #{$top-strip-cutoff-width}) {
+      > ._topAdStrip {
+        display: none;
+      }
+    }
+    @media (max-width: #{$top-strip-cutoff-width - 1px}) {
+      .results > ._topAdStrip {
+        display: none;
+      }
+    }
+    > ._savedCalcs {
+      position: sticky;
+      box-shadow: none;
+      z-index: $zidx-content-overlay + 3;
+      width: 338px;
+      @include desktop-large-plus {
+        width: 380px;
+      }
+      top: 0;
+      height: 0;
+      overflow-y: visible;
+
+      > ._panel {
+        position: relative;
+        background-color: inherit;
+        height: 100vh;
+        > ._inner {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          overflow-y: auto;
+        }
+      }
+    }
+    > ._header {
+      &:not(.--open) {
+        transition: margin-left $txn-slow ease-in;
+        margin-left: 0;
+      }
+      &.--open {
+        transition: margin-left $txn-slow ease-out;
+        margin-left: 338px;
+        @include desktop-large-plus {
+          margin-left: 380px;
+        }
+      }
+    }
+    .results {
+      position: relative;
+      box-shadow: 6px 0 5px -5px inset $shadow-color;
+      background-color: $rhs-bg-col;
+
+      width: calc(100% - 338px);
+      max-width: calc(100% - 338px);
+      &.--chain-open {
+        margin-left: calc(-100vw + 338px + var(--scrollbarWidth));
+      }
+      @include desktop-large-plus {
+        width: calc(100% - 380px);
+        max-width: calc(100% - 380px);
+        &.--chain-open {
+          margin-left: calc(-100vw + 380px + var(--scrollbarWidth));
+        }
+      }
+      > ._inner {
+        > ._stratSelectionFull {
+          float: left;
+          width: 100%;
+          max-width: calc(
+            100vw - 160px - #{$pad-2 * 2 + $pad} - 338px - var(--scrollbarWidth)
+          );
+          @include desktop-large-plus {
+            max-width: calc(
+              100vw - 160px - #{$pad-2 * 2 + $pad} - 380px - var(--scrollbarWidth)
+            );
+          }
+        }
+        > ._summary {
+          float: left;
+          display: inline-block;
+          margin-bottom: $pad-2;
+          margin-right: $pad-2;
+          padding: $pad;
+          padding-top: $pad-1-2;
+        }
+        > ._visCtnr {
+          clear: left;
+          &.--is-floated {
+            float: left;
+          }
+          > ._inner {
+            min-width: 450px;
+            max-width: calc(
+              100vw - #{338px + $pad-2 + $pad-2 + 160px + $pad} - var(--scrollbarWidth)
+            );
+            padding-left: 0;
+            @include size-side-by-side {
+              padding-left: 0; //$pad-1-3;
+            }
+            @include desktop-large-plus {
+              min-width: 672px;
+              max-width: calc(
+                100vw - #{380px + $pad-2 + $pad-2 + 160px + $pad}
+              );
+            }
+            @include paddingVertical($pad);
+            margin-right: $pad-2;
+          }
+        }
+        > ._verticalAd {
+          float: right;
+          top: 0;
+          position: sticky;
+        }
+      }
+    }
+    .optionsChainCtnr {
+      > ._inner {
+        @include card-style();
+      }
+    }
+  }
+  > ._topAdStrip {
+    background-color: $col-panel;
+    border-bottom: 3px solid $col-panel-contrast;
+  }
+}
+
+.positionDetail {
+  display: inline-block;
+  position: fixed;
+  z-index: $zidx-content-overlay + 1;
+  bottom: 0;
+  right: 0;
+  @include mobile-only {
+    left: 0;
+  }
+  @include tablet-plus {
+    bottom: $pad-1-2;
+    right: $pad-2;
+  }
+
+  > ._card {
+    $hpad: $pad;
+    padding: $hpad;
+    padding-top: $pad-1-2;
+    @include mobile-only {
+      padding-bottom: max(#{$pad-1-3}, env(safe-area-inset-bottom));
+    }
+    cursor: move;
+    > ._heading {
+      ._closeBtn {
+        @include clickable;
+        color: $col-clickable-icon;
+        margin-top: -$pad-1-3;
+        margin-right: -$pad-1-2;
+      }
+    }
+    > ._inner {
+      cursor: initial;
+      @include mobile-only {
+        @include marginHorizontal(-$hpad);
+        overflow-x: auto;
+      }
+    }
+  }
+}
+
+.newTag {
+  background-color: $col-secondary-orange;
+  color: $col-light;
+  line-height: 1.4em;
+  display: inline-block;
+  @include paddingHorizontal(0.3em);
+}
+
+.optionsChainCtnr {
+  position: sticky;
+  top: $pad + $mobile-strat-nav-height;
+  max-height: calc(100vh - #{$mobile-strat-nav-height + (2 * $pad)});
+
+  &.--layout-side-by-side {
+    z-index: $zidx-content-overlay;
+
+    width: calc(100vw - 338px - #{$pad-2} - var(--scrollbarWidth));
+    @include desktop-large-plus {
+      width: calc(100vw - 380px - #{$pad-2} - var(--scrollbarWidth));
+    }
+    margin-left: $pad-2;
+    > ._inner {
+      height: 100%;
+      max-width: 100%;
+    }
+    // flex-start would be good, but when the popup is wide, it overflows the right viewport and creates h-scroll
+    //align-self: flex-start;
+  }
+  &.--fullscreen {
+    z-index: $zidx-overlay;
+    @include tablet-large-down {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+  &.--layout-stacked {
+    z-index: $zidx-overlay;
+    @include tablet-large-down {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      @include card-style();
+    }
+    @include desktop-small-plus {
+      position: fixed;
+      //z-index: $zidx-overlay; //?
+      top: $header-height-lg;
+      margin-top: $pad + $mobile-strat-nav-height;
+      right: $pad;
+      min-width: 33em; // based on content
+      //width: calc(100vw - #{248 + 420 + (3 * $pad)} - 3.4rem);
+      // really want sticky to allow for nav bar
+      //min-height: 45vh;
+      // Magic number
+      //max-height: calc(100vh - #{135px});
+      max-width: 60rem;
+      bottom: $pad;
+      @include card-style();
+    }
+  }
+}
+
+.mobileTabs {
+  @include paddingHorizontal($mobile-horizontal-padding);
+  > ._tab {
+    &:not(.--selected) {
+      display: none;
+    }
+
+    &._resultsArea > ._summary {
+      @include marginHorizontal(-$mobile-horizontal-padding);
+    }
+  }
+}
+
+.stackedEntryLayout {
+  > ._item {
+    float: none !important;
+  }
+}
+
+.toggleViewLabel {
+  @include clickable;
+}
+
+.closeIcon {
+  @include clickable;
+  width: 14px;
+  height: 14px;
+  color: transparentize($col-clickable-icon, 0.5);
+  margin-left: $pad-1-2;
+}
+
+.nextButton {
+  margin-right: -#{$mobile-horizontal-padding};
+  padding-right: $mobile-horizontal-padding;
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+
+  .__rightArrow {
+    margin-left: $pad-1-3;
+    margin-right: 4px;
+    width: 0.65em;
+    height: 0.65em;
+    transform: rotate(45deg);
+    border-top: 2px solid $col-light;
+    border-right: 2px solid $col-light;
+  }
+}
+
+.prevButton {
+  > ._leftArrow {
+    margin-left: 3px;
+    margin-right: 4px;
+    width: 0.5em;
+    height: 0.5em;
+    transform: translateY(-1.5px) rotate(-135deg);
+    border-top: 2px solid $col-link;
+    border-right: 2px solid $col-link;
+  }
+}
+
+.resultsPlaceholderFs {
+  > ._inner {
+    $horiz-ad-height-rough: 126px;
+    max-height: 16rem;
+    height: calc(
+      100vh - #{toRem($font-size-content-pragmatic)} - #{$header-height-lg + (
+          2 * $header-item-padding-v
+        ) + (2 * $header-padding-v) + (2 * $horiz-ad-height-rough)}
+    );
+    ._arrow {
+      display: block;
+      opacity: 0.75;
+      color: $col-content-hint;
+      transform: rotate(180deg);
+      margin-right: $pad-1-3;
+    }
+  }
+}
+.resultsPlaceholder {
+  display: inline-flex;
+  border: 1px dashed $col-content-hint;
+  margin-right: $pad;
+  @include mobile-only {
+    min-height: 45vh;
+  }
+  @include tablet-only {
+    min-height: 25vh;
+  }
+  > ._arrow {
+    display: none;
+  }
+
+  > ._text {
+    font-size: $font-size-content-pragmatic;
+  }
+}
+
+.textDisabled {
+  color: $col-content-disabled;
+}

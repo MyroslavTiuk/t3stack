@@ -1,0 +1,52 @@
+@import '../../../theme/variables';
+
+.icon {
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.--inline {
+    display: inline-flex;
+  }
+}
+
+.--size-xsmall {
+  width: 14px;
+  height: 14px;
+}
+
+.--size-small {
+  width: 20px;
+  height: 20px;
+}
+
+.--size-sm-med {
+  width: 26px;
+  height: 26px;
+}
+
+.--size-medium {
+  width: 32px;
+  height: 32px;
+}
+
+.--size-large {
+  width: 48px;
+  height: 48px;
+}
+
+.--color-guide {
+  color: $col-guide;
+}
+.--color-clickable {
+  color: $col-clickable-icon;
+}
+.--color-halfLink {
+  color: rgba($col-link, 0.8);
+}
+
+.img {
+  max-height: 100%;
+  max-width: 100%;
+}

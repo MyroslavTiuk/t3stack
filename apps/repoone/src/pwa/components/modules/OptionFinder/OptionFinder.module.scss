@@ -1,0 +1,38 @@
+@import "../../../theme/functions";
+@import "../StrategyCalculator/Entry/Entry.module";
+@import "../../primitives/Input/Input-style.module.scss";
+
+.optionFinderBase {
+  max-width: 100%;
+  width: 380px;
+
+  .fieldsCtnr > .--longer-label {
+    grid-template-columns: minmax(auto, 7.75em) 7fr 27px;
+  }
+
+  ._expirySelect {
+    @include mobile-only {
+      width: 9em;
+    }
+  }
+
+  ._expectedPrice {
+    width: 6em;
+  }
+
+  ._expectedPriceComparitor {
+    ._input {
+      width: 6.5em;
+    }
+  }
+}
+
+.error {
+  color: $col-warning;
+}
+
+.datePickerInput {
+  @include input-style();
+  @include input-style-typo();
+  @include input-style-outlined();
+}

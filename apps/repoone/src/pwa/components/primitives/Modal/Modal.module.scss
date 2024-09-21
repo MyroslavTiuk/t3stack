@@ -1,0 +1,60 @@
+﻿@import '../../../theme/common';
+
+.container {
+}
+.closeIconCtnr {
+  color: $col-panel-contrast;
+}
+.header {
+  font-weight: bold;
+  margin-right: 20px;
+}
+.overlay {
+  display: flex;
+  justify-content: center !important;
+  z-index: $zidx-overlay;
+  @include mobile-only {
+    padding: 0 !important;
+  }
+  @include tablet-plus {
+    align-items: center !important;
+  }
+}
+
+@keyframes growIn {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.modal {
+  z-index: $zidx-overlay + 1;
+  position: relative;
+  @include mobile-only {
+    margin: 0;
+    min-height: 95vh;
+    max-height: 100vh;
+    width: 100%;
+    padding: 0;
+    background-color: $col-light;
+    > ._inner {
+      background-color: inherit;
+      padding: $pad;
+    }
+  }
+  @include tablet-plus {
+    animation-duration: $txn-swift;
+    animation-name: growIn;
+    max-height: calc(100vh - #{$pad-2});
+    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+    > ._inner {
+      background-color: inherit;
+      padding: $pad-2;
+    }
+  }
+}

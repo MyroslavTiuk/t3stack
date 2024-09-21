@@ -1,0 +1,162 @@
+version: 1
+applications:
+  - appRoot: apps/optionscout
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - env | grep
+              -e SLACK_WEBHOOK_URL
+              -e TD_AMERITRADE_API_KEY
+              -e STRIPE_SECRET_KEY
+              -e STRIPE_WEBHOOK_SIGNING
+              -e PRICE_ID
+              -e NEXTAUTH_SECRET
+              -e OPTIONSCOUT_DATABASE_URL
+              -e GOOGLE_ID
+              -e GOOGLE_SECRET
+              -e GITHUB_CLIENT_ID
+              -e GITHUB_CLIENT_SECRET
+              -e TWITTER_API
+              -e TWITTER_API_SECRET
+              -e TWITTER_BEARER
+              -e EMAIL_SERVER
+              -e EMAIL_FROM
+              -e SENDGRID_API_KEY
+              -e SENDGRID_MAILING_ID
+              > .env
+
+            - if [ "${AWS_BRANCH}" = "main" ]; then echo "NEXTAUTH_URL=https://optionscout.com" >> .env; fi
+            - if [ "${AWS_BRANCH}" = "scanner" ]; then echo "NEXTAUTH_URL=https://scanner.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+            - if [ "${AWS_BRANCH}" = "dev" ]; then echo "NEXTAUTH_URL=https://dev.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+            - if [ "${AWS_PULL_REQUEST_ID}" != "" ]; then echo "NEXTAUTH_URL=https://pr-${AWS_PULL_REQUEST_ID}.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+
+            - if [ "${AWS_BRANCH}" = "main" ]; then npm run remove-hidden-pages; fi
+            - if [ "${AWS_BRANCH}" = "main" ]; then echo "NEXT_PUBLIC_HIDE_SCANNER=true" >> .env; fi
+
+            - cd ../..
+            - npx pnpm@7.15.0 -r install --shamefully-hoist --ignore-scripts
+            - npx pnpm@7.15.0 db:generate
+        build:
+          commands:
+            - npx pnpm@7.15.0 build --filter optionscout
+        postBuild:
+          commands:
+            # this copies the files back to the root of the "standalone" folder so Amplify can find them
+            # keep an eye on https://github.com/aws-amplify/amplify-hosting/issues/3179
+            # for possible long-term fix from the Amplify team
+            - cd apps/optionscout
+            - cp -r .next/standalone/apps/optionscout/. .next/standalone
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+
+  - appRoot: apps/trackgreeks
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - env | grep
+              -e NEXTAUTH_SECRET
+              -e TRACKGREEKS_DATABASE_URL
+              -e GOOGLE_ID
+              -e GOOGLE_SECRET
+              -e NEXT_PUBLIC_TD_AMERITRADE_API_KEY
+              -e CSV_IMPORT_S3_BUCKET
+              -e STRIPE_SECRET_KEY
+              -e STRIPE_PRICE_ID
+              -e STRIPE_WEBHOOK_SIGNING
+              -e SENTRY_AUTH_TOKEN
+              -e EMAIL_SERVER
+              -e EMAIL_FROM
+              -e TRADIER_TOKEN
+              > .env
+
+            - env | grep -e WORKAROUND_ | sed "s/WORKAROUND_//g" >> .env
+
+            - if [ "${AWS_BRANCH}" = "main" ]; then echo "NEXTAUTH_URL=https://trackgreeks.com" >> .env; fi
+            - if [ "${AWS_BRANCH}" = "dev" ]; then echo "NEXTAUTH_URL=https://dev.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+            - if [ "${AWS_BRANCH}" = "staging" ]; then echo "NEXTAUTH_URL=https://staging.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+            - if [ "${AWS_PULL_REQUEST_ID}" != "" ]; then echo "NEXTAUTH_URL=https://pr-${AWS_PULL_REQUEST_ID}.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+
+            - cd ../..
+            - npx pnpm -r install --shamefully-hoist
+            - npx pnpm db:generate
+        build:
+          commands:
+            - npx pnpm build --filter trackgreeks
+        postBuild:
+          commands:
+            # this copies the files back to the root of the "standalone" folder so Amplify can find them
+            # keep an eye on https://github.com/aws-amplify/amplify-hosting/issues/3179
+            # for possible long-term fix from the Amplify team
+            - cd apps/trackgreeks
+            - cp -r .next/standalone/apps/trackgreeks/. .next/standalone
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+
+  - appRoot: apps/opcalc
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - env | grep
+              -e NEXTAUTH_SECRET
+              -e OPCALC_DATABASE_URL
+              -e GOOGLE_ID
+              -e GOOGLE_SECRET
+              -e NEXT_PUBLIC_TD_AMERITRADE_API_KEY
+              -e CSV_IMPORT_S3_BUCKET
+              -e STRIPE_SECRET_KEY
+              -e NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+              -e STRIPE_PRICE_ID
+              -e STRIPE_WEBHOOK_SIGNING
+              -e EMAIL_SERVER
+              -e EMAIL_FROM
+              -e TRADIER_TOKEN
+              -e NEXT_PUBLIC_HIDE_SCANNER
+              -e TEST_OFFLINE
+              -e GLOBAL_CACHE
+              -e USE_CACHE_FUNCS
+              -e USE_CACHE_REQ
+              -e DEBUG_REDIRECTS
+              -e V2_API_BASE_URL_CALCULATOR
+              -e DEFAULT_INPUT_METHOD
+              -e BACKTESTER_SOURCE_API_ROUTE 
+              > .env
+
+            - env | grep -e WORKAROUND_ | sed "s/WORKAROUND_//g" >> .env
+
+            - if [ "${AWS_BRANCH}" = "main" ]; then echo "NEXTAUTH_URL=https://app.opcalc.com" >> .env; fi
+            - if [ "${AWS_BRANCH}" = "staging" ]; then echo "NEXTAUTH_URL=https://staging.${AWS_APP_ID}.amplifyapp.com" >> .env; fi
+
+            - cd ../..
+            - npm i -g pnpm
+            - npx pnpm -r install --shamefully-hoist
+            - npx pnpm db:generate
+        build:
+          commands:
+            - npx pnpm build --filter opcalc
+        postBuild:
+          commands:
+            # this copies the files back to the root of the "standalone" folder so Amplify can find them
+            # keep an eye on https://github.com/aws-amplify/amplify-hosting/issues/3179
+            # for possible long-term fix from the Amplify team
+            - cd apps/opcalc
+            - cp -r .next/standalone/apps/opcalc/. .next/standalone
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*

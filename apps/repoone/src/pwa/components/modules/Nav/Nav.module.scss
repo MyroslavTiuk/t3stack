@@ -1,0 +1,221 @@
+@import '../../../theme/common';
+
+$nav-underline: 1.4px solid $col-secondary-orange;
+$nav-underline-hover: 1px solid transparentize($col-secondary-orange, 0.3);
+$nav-ghost-underline: 1px solid transparent;
+
+.mobileMenu {
+  @include mobile-only {
+    top: $header-height;
+  }
+  @include tablet-only {
+    top: $header-height-md;
+  }
+  @include mobile-menu-size {
+    background-color: $col-bg-dark;
+    width: 80%;
+    max-width: 300px;
+    padding: 0 10px 10px 10px;
+
+    &.--is-expanded {
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    }
+    > ._menu {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  @include desktop-menu-size {
+    > ._menu {
+      padding-top: 0.15rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+.mobileMenuOverlay {
+  top: $header-height;
+  z-index: $zidx-overlay;
+  background-color: $col-dark-overlay;
+}
+
+.closeBtn {
+  @include clickable;
+  @include mobile-menu-size {
+    color: $col-content-on-dark;
+    width: 44px;
+    height: 44px;
+    padding: 12px;
+    margin-right: -10px;
+  }
+  @include desktop-menu-size {
+    display: none;
+  }
+}
+
+@mixin font-color() {
+  color: $col-light;
+
+  &:visited,
+  &:hover,
+  &:visited:hover {
+    color: $col-light;
+  }
+  &:active {
+    color: rgba($col-light, 0.8);
+  }
+}
+
+.nav-link-ctnr {
+  display: inline;
+  @include mobile-menu-size {
+    display: block;
+  }
+
+  > ._link {
+    font-family: $font-headings;
+    font-size: toRem(16px);
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+
+    @include mobile-menu-size {
+      display: block;
+      font-size: toRem(24px);
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    padding: 0.3em 0.33em;
+    @include mobile-menu-size {
+      margin-left: 0;
+    }
+    @include marginHorizontal($pad-1-3);
+    @include desktop-large-plus {
+      @include marginHorizontal($pad-1-2);
+    }
+    text-decoration: none;
+
+    @include theme-light() {
+      @include font-color();
+    }
+    @include theme-dark() {
+      @include font-color();
+    }
+    border-bottom: $nav-ghost-underline;
+
+    &.--active {
+      border-bottom: $nav-underline;
+    }
+    .mobileMenu:hover &:hover {
+      border-bottom: $nav-underline-hover;
+
+      &.--active {
+        border-bottom: $nav-underline;
+      }
+    }
+  }
+}
+
+.--loading {
+  visibility: hidden;
+}
+
+.separator {
+  border-left: 1px solid #ffffff33;
+}
+
+.loginButton {
+  margin: 0 10px;
+}
+.loginLoading {
+  position: relative;
+  color: $col-content-on-dark;
+  ._loadingCtnr {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.icon {
+  color: $col-light;
+}
+
+.accountMenuIcon {
+  margin-left: $pad-1-2;
+  @include clickable;
+}
+
+.accountMenu {
+  @include menu-ctnr();
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 300px;
+  > ._menuItem {
+    @include menu-item;
+    > ._subMenu {
+      margin-top: 10px;
+      color: $col-gray-50;
+      font-size: 12px;
+    }
+  }
+}
+
+.mobileAccountMenu {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  padding: 10px 10px;
+  border: 1px solid $col-panel-contrast-a50;
+  width: 100%;
+  margin-bottom: 15px;
+
+  .iconContainer {
+    display: flex;
+    align-items: center;
+  }
+  .loggedInAs {
+    color: $col-content-on-dark;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: $pad-1-2;
+
+    > ._desc {
+      font-size: toRem(12.5px);
+      font-weight: $font-weight-medium;
+    }
+    > ._emailAddress {
+      font-size: toRem(15px);
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.footerSpace {
+  @include marginVertical($pad-1-2);
+}
+.headerSpace {
+  @include marginVertical($pad-1-2);
+}
+
+.menuDivider {
+  border-top: 1px solid $col-panel-contrast-a50;
+  width: calc(100% - #{$pad-1-2 * 2});
+  @include marginHorizontal($pad-1-2);
+  @include marginVertical($pad-1-2);
+}
+
+.menuDividerVertical {
+  border-left: 1px solid $col-panel-contrast-a50;
+  margin-left: $pad;
+  margin-right: $pad;
+  height: 1.6em;
+}

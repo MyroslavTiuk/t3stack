@@ -1,0 +1,11 @@
+@import '../../../theme/variables';
+@import '../Typo/Typo.module';
+
+.loading-text {
+  width: 100%;
+  text-align: center;
+}
+
+.icon {
+  fill: $col-gray-72;
+}

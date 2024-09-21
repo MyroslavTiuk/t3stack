@@ -1,0 +1,169 @@
+.paddingBlog {
+  padding-left: calc((100vw - 1320px) / 2);
+  padding-right: calc((100vw - 1320px) / 2);
+}
+
+.paddingPost {
+  padding-left: calc((100vw - 900px) / 2);
+  padding-right: calc((100vw - 900px) / 2);
+}
+
+@media (max-width: 1400px) {
+  .paddingBlog {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .paddingBlog {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .paddingPost {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+.markdownText {
+  margin-top: 40px;
+  font-size: 1.5rem;
+}
+
+.markdownText p {
+  margin-top: 20px;
+}
+
+.markdownText ul,
+.markdownText ol {
+  list-style-position: inside;
+}
+.markdownText a {
+  color: rgb(66, 180, 13);
+}
+.markdownText h1,
+.markdownText h2,
+.markdownText h3,
+.markdownText h4,
+.markdownText h5,
+.markdownText h6 {
+  margin-top: 20px;
+  font-size: revert;
+  font-weight: revert;
+}
+
+.vote {
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.vote:hover {
+  color: #747474;
+}
+
+.reply {
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.reply:hover {
+  color: #747474;
+}
+
+.hlinei {
+  width: 4px;
+  height: calc(100% - 2px);
+}
+
+.vline {
+  margin: 0 !important;
+  width: 30px;
+  height: 4px;
+}
+
+.hline {
+  width: 4px;
+  height: 65%;
+  margin: 0;
+}
+
+@keyframes overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modaloverlay {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  z-index: 200;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.219);
+
+  animation-name: overlay;
+  animation-duration: 0.2s;
+}
+
+.modal {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  height: fit-content;
+  width: 450px;
+  padding: 24px;
+  padding-top: 14px;
+
+  border-radius: 16px;
+  box-shadow: 0 0 30px -10px black;
+}
+
+.scrollTop {
+  position: fixed !important;
+  padding: 1rem 2rem;
+  font-size: 20px !important;
+  bottom: 40px;
+  right: 40px;
+}
+
+.frontPostImg {
+  width: 600px;
+  height: 450px;
+}
+
+.lastPostImg {
+  width: 100%;
+  height: 450px;
+}
+
+.postImg {
+  width: 100%;
+  height: auto;
+}
+/* 1160 */
+
+@media (max-width: 1160px) {
+  .frontPostImg {
+    flex: 1;
+    width: 500px;
+    height: 300px;
+  }
+  .markdownText {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .lastPostImg {
+    height: 250px;
+  }
+}
+
+/* 707 */

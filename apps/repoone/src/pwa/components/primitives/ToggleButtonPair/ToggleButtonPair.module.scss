@@ -1,0 +1,51 @@
+@import '../../../theme/common';
+
+.container {
+  border: 1px solid $col-panel-contrast;
+  background-color: $col-panel-contrast-a12;
+  display: inline-block;
+  ._item {
+    @include marginVertical(2px);
+    margin-left: 0;
+    &:first-child {
+      margin-left: 2px;
+    }
+    &:last-child {
+      margin-right: 2px;
+    }
+    line-height: toRem(29px);
+    display: inline-block;
+    @include paddingHorizontal($pad-1-2);
+
+    &.--selected {
+      cursor: default;
+      &:not(.--disabled) {
+        background-color: $col-primary-blue;
+      }
+      &.--disabled {
+        background-color: $col-gray-50-a40;
+      }
+      color: $col-light;
+    }
+    &:not(.--selected) {
+      &:not(.--disabled):hover {
+        @include clickable;
+        background-color: transparentize($col-primary-blue, 0.8);
+      }
+      &.--no-value-selected {
+        color: $col-link-dk;
+        + .--no-value-selected {
+          border-left: 1px solid transparentize($col-panel-contrast, 0.5);
+        }
+      }
+      &:not(.--no-value-selected) {
+        opacity: 0.5;
+        color: $col-panel-contrast;
+        &:not(.--disabled):hover {
+          color: $col-link-dk;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

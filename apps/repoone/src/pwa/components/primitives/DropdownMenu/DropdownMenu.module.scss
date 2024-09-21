@@ -1,0 +1,46 @@
+@import '../../../theme/common';
+
+.container {
+  position: relative;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes in-top {
+  0% {
+    transform: translateY(-#{$pad-1-2});
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.menuCtnr {
+  position: absolute;
+  top: 100%;
+  animation: in-top $txn-swift, fadein $txn-swift;
+  @include card-style(1);
+  padding: $pad $pad-1-2;
+  background-color: $col-light;
+  border-radius: $card-border-radius;
+
+  &.--bottomLeft {
+    right: 0;
+  }
+  &.--bottomRight {
+    left: 0;
+  }
+}
+
+.trigger {
+  @include clickable;
+}

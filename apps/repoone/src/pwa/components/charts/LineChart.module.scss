@@ -1,0 +1,21 @@
+﻿.container {
+  &.--stacked {
+    flex-direction: column;
+
+    > ._legendsContainer {
+      flex-direction: row;
+    }
+  }
+  &:not(.--stacked) {
+    > ._chartContainer {
+      width: calc(100% - 9.5em);
+    }
+  }
+  > ._chartContainer {
+    flex: 1 0 auto;
+  }
+
+  > ._legendsContainer {
+    min-width: 9.5em;
+  }
+}

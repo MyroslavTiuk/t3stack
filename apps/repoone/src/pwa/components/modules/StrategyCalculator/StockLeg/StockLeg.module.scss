@@ -1,0 +1,57 @@
+@import '../../../../theme/common';
+
+.detailsGroup {
+  // This is a function of the contents
+  min-height: calc(2.4rem);
+}
+
+.priceLast {
+  display: flex;
+  align-items: flex-start;
+  font-weight: $font-weight-semibold;
+  line-height: 100%;
+  > ._dollarSymbol {
+    font-weight: $font-weight-regular;
+  }
+}
+
+.priceLine {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.priceGroup {
+  @include clickable;
+  &.--clickable {
+    > ._priceLabel {
+      color: $col-link;
+    }
+    > ._priceNum {
+      color: $col-content-caption;
+    }
+  }
+  &:not(.--clickable) {
+    > ._priceLabel,
+    > ._priceNum {
+      color: $col-content-disabled;
+    }
+    > ._priceNum {
+      text-indent: 5.5px;
+    }
+  }
+  margin-left: $pad-1-2;
+  flex: 1 0 auto;
+  ._priceLabel {
+    text-indent: 5.5px;
+    font-size: $font-size-content-tiny;
+  }
+  ._priceNum {
+    @include mobile-medium-plus {
+      min-width: 4em;
+    }
+    @include mobile-small {
+      display: none;
+    }
+    font-size: $font-size-content-tiny;
+  }
+}

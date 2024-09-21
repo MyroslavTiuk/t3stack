@@ -1,0 +1,189 @@
+// ** Colors **
+$col-content: #171717;
+$col-content-subtle: rgba($col-content, 0.92);
+$col-content-on-dark: rgba(#ffffff, 0.95);
+$col-headings: #342b3a;
+$col-headings-l1: #003366;
+$col-headings-l2: #8e0606;
+$col-headings-l3: #292626;
+$col-headings-lt: rgba(#342b3a, 0.75);
+$col-headings-on-dark: #ffffff;
+$col-heading-active: #b60000;
+$col-heading-active-on-dark: #b60000;
+$col-content-caption: lighten($col-content, 30%);
+$col-content-caption-on-dark: rgba(#ffffff, 0.65);
+$col-content-hint: #adadad;
+$col-opacity-disabled: 0.6;
+$col-content-dimmed: rgba($col-content, 0.55);
+$col-content-disabled: rgba($col-content, 0.25);
+$col-content-hint-on-dark: $col-content-hint;
+$col-light: #ffffff;
+$col-light-dk: #fefeff;
+$col-light-dk1: #fbfbfb;
+$col-light-dk2: #f3f3f3;
+$col-primary-blue: #2d78c8;
+$col-secondary-orange: #eb582a;
+$col-secondary-orange-dk1: darken($col-secondary-orange, 10%);
+$col-quaternary-cyan: #00deec;
+$col-tertiary-darkgray: #353556;
+$col-tertiary-darkgray-dk1: $col-content;
+$col-error: #d60000;
+$col-warning: $col-secondary-orange-dk1;
+$col-success: #008000;
+$col-notification: #d60000;
+$col-debit-em: #b60000;
+$col-credit-em: #005c43;
+$col-both-deb-credit-em: #623391;
+$col-positive: #00c3a0;
+$col-link: #0c08c2;
+$col-link-lt: #859ef8;
+$col-link-dk: darken(#0c08c2, 10%);
+$col-link-visited: #0c08c2;
+$col-link-on-dark: rgba(#bbdff4, 0.9);
+$col-link-visited-on-dark: darken(#bbdff4, 7%);
+$col-lightblue-EBF1FF: #ebf1ff;
+$col-linked-field: $col-link;
+$col-linked-field-dk: darken($col-linked-field, 12%);
+$col-panel: #f5f4f7;
+$col-panel-contrast: #91a6bc;
+$col-panel-contrast-a28: rgba($col-panel-contrast, 0.28);
+$col-panel-contrast-a35: rgba($col-panel-contrast, 0.35);
+$col-panel-contrast-a50: rgba($col-panel-contrast, 0.5);
+$col-panel-contrast-a70: rgba($col-panel-contrast, 0.7);
+$col-panel-contrast-a20: rgba($col-panel-contrast, 0.2);
+$col-panel-contrast-a08: rgba($col-panel-contrast, 0.08);
+$col-panel-contrast-a06: rgba($col-panel-contrast, 0.06);
+$col-panel-contrast-a12: rgba($col-panel-contrast, 0.12);
+$col-panel-contrast-dk12: darken($col-panel-contrast, 12%);
+$col-panel-contrast-dk24: darken($col-panel-contrast, 24%);
+$col-panel-contrast-dk35: darken($col-panel-contrast, 35%);
+$col-panel-contrast-dk50: darken($col-panel-contrast, 50%);
+$col-panel-contrast-lt70: mix($col-light, $col-panel-contrast, 70%);
+$col-headings-2: darken($col-panel-contrast, 40%);
+$col-headings-2-on-dark: $col-panel-contrast;
+$col-opacity-pending: 0.25;
+$col-action: #2d78c8;
+$col-action-a12: rgba($col-action, 0.12);
+$col-clickable-icon: $col-panel-contrast-dk12;
+$col-clickable-icon-subtle: transparentize($col-panel-contrast-dk12, 0.4);
+$col-guide: $col-panel-contrast-a70;
+$col-guide-subtle: rgba($col-panel-contrast, 0.35);
+
+// ** Grays **
+$col-gray-50: #808080;
+$col-gray-50-a25: rgba(#808080, 0.25);
+$col-gray-50-a40: rgba(#808080, 0.4);
+$col-gray-72: mix(#fff, #000, 75);
+$col-gray-86: mix(#fff, #000, 86);
+$col-gray-95: mix(#fff, #000, 95);
+$col-light-overlay: rgba($col-light, 0.26);
+$col-dark-overlay: rgba(#000000, 0.15);
+$col-mid-overlay: $col-panel-contrast-a12;
+
+$col-bg-dark: #221d28;
+$col-bg-dark-ltr: rgba($col-light, 0.06);
+//$col-bg-dark-grad: #221D28;
+$col-bg-dark-lt1: #2b2634;
+$col-bg-dark-lt2: $col-tertiary-darkgray;
+$col-bg-dark-lt2-a50: rgba($col-tertiary-darkgray, 0.5);
+
+// ** Sizings
+$card-border-radius: 3px;
+$bubble-border-radius: 6px;
+$card-inset-border-width: 1px;
+$card-shadow-margin: 5px;
+$button-radius: 4px;
+
+// ** Styles
+$border-table: 1px solid $col-panel-contrast-a50;
+
+$box-shadow-1: 0 0 6px rgba(0, 0, 0, 0.25);
+
+// ** Line height **
+$line-height-content: 160%;
+
+$pad: 1 * 16px;
+$golden-ratio: 1.618;
+// - multiples
+$pad-2: $pad * $golden-ratio;
+$pad-3: $pad-2 * $golden-ratio;
+$pad-4: $pad-3 * $golden-ratio;
+// - fractions
+$pad-1-2: $pad / $golden-ratio;
+$pad-1-3: $pad-1-2 / $golden-ratio;
+$pad-1-4: $pad-1-3 / $golden-ratio;
+
+// ** Sizes **
+$base-font-size: 15px;
+
+$font-ratio: 15.75/13.8;
+$font-ratio-up: 17/15.75;
+$font-size-content-pragmatic: $base-font-size;
+$font-size-content: $base-font-size * $font-ratio;
+$font-size-content-feature: $font-size-content * $font-ratio;
+$font-size-content-detail: $font-size-content-pragmatic / $font-ratio;
+$font-size-content-minor: $font-size-content-detail / $font-ratio;
+$font-size-content-tiny: $font-size-content-minor / $font-ratio;
+$font-size-h6: $font-size-content-pragmatic * 1.05;
+$font-size-h5: $font-size-content-pragmatic * 1;
+$font-size-h4: $font-size-content * 1.1 * $font-ratio-up;
+$font-size-h3-mob: $font-size-h4 * $font-ratio-up;
+$font-size-h3: $font-size-h3-mob * $font-ratio-up;
+
+// ** Layout **
+$header-height: 44px;
+$header-height-md: 52px;
+$header-height-lg: 60px;
+$header-padding-v: $pad-1-4;
+$header-item-padding-v: $pad-1-2;
+$mobile-strat-nav-height: (1.25 * $font-size-content-pragmatic) +
+  (2 * $header-padding-v) + (2 * $header-item-padding-v);
+$mobile-non-tappable-bottom-height: 40px;
+$leg-indicator-width: 12px;
+$leg-indicator-height: 16px;
+$leg-indicator-triangle-width: 7px;
+$mobile-horizontal-padding: $pad;
+$fieldset-padding: $pad-1-2;
+
+// ** Headings **
+$font-headings: 'Raleway', sans-serif;
+$font-content: 'Lato', sans-serif;
+
+// ** Weights **
+$font-weight-black: 900;
+$font-weight-extrabold: 800;
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-medium: 500;
+$font-weight-regular: 400;
+$font-weight-light: 300;
+
+// ** Transitions **
+$txn-swift: 100ms;
+$txn-slow: 200ms;
+$txn-delay: 350ms;
+
+// ** Media Queries **
+// *
+// * /!\ Warning
+// *
+// * Stay in sync with useBreakpoint numbers
+// *
+$bkpt-mobile-medium: 360px;
+$bkpt-mobile-large: 480px;
+$bkpt-tablet: 768px;
+$bkpt-tablet-large: 980px;
+$bkpt-desktop-small: 1015px;
+$bkpt-desktop-large: 1280px;
+
+// ** Z-Index Depth **
+$zidx-content: 10;
+$zidx-foreground: 20;
+$zidx-dropdowns: 30;
+$zidx-tooltips: 40;
+$zidx-content-overlay: 50;
+$zidx-loading-overlay: 60;
+$zidx-loading-bar: 65;
+$zidx-header: 70;
+$zidx-overlay: 80;
+$zidx-overlay-message: 85;

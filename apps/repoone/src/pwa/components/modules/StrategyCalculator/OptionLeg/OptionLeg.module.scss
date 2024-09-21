@@ -1,0 +1,134 @@
+@import '../../../../theme/common';
+@import '../OptionsChain/tabularData.module';
+
+$disableLegChkBoxSize: 18px;
+
+.container {
+  @include tablet-plus {
+    //padding-left: $disableLegChkBoxSize;
+  }
+  opacity: 1;
+  transition: opacity $txn-slow;
+  &.--disabled {
+    opacity: $col-opacity-disabled;
+    transition: opacity 0ms;
+  }
+  .disableLegChkbox:checked,
+  .actionMenuTrigger {
+    opacity: 0;
+    transition: opacity $txn-slow;
+  }
+  &:hover {
+    .disableLegChkbox,
+    .actionMenuTrigger {
+      opacity: 1;
+      transition: opacity $txn-slow;
+    }
+  }
+  @include touch-screen {
+    .disableLegChkbox:checked,
+    .actionMenuTrigger {
+      opacity: 1;
+      transition: opacity $txn-slow;
+    }
+  }
+}
+
+.header {
+  @include tablet-plus {
+    &.--checkBoxToLeft {
+      margin-left: -$disableLegChkBoxSize;
+    }
+  }
+}
+
+.actionMenu {
+  z-index: $zidx-foreground + 5;
+}
+
+.dropdownTabularRow {
+  &:nth-child(even) {
+    @include rowEven;
+  }
+  &:nth-child(odd) {
+    @include rowOdd;
+  }
+  &.--is-header {
+    width: 100%;
+    > ._item {
+      @include paddingHorizontal($pad-1-2);
+      @include paddingVertical($pad-1-4);
+    }
+  }
+  white-space: nowrap;
+  display: table-row;
+
+  &:not(.--last-price) {
+    > ._item {
+      @include paddingVertical(0.45em);
+    }
+  }
+  &.--warning-row {
+    @include paddingHorizontal($pad-1-3);
+    @include paddingVertical($pad-1-4);
+    background-color: $col-warning;
+    color: $col-light;
+    font-size: $font-size-content-detail;
+  }
+  &.--last-price {
+    > ._item {
+      @include paddingVertical($pad-1-4);
+    }
+    font-size: $font-size-content-detail;
+    background-color: $col-panel-contrast;
+    color: $col-light;
+  }
+
+  > ._item {
+    @include paddingHorizontal($pad-1-2);
+    display: table-cell;
+    cursor: default;
+    &:not(:first-child) {
+      padding-left: $pad-1-3;
+    }
+    &:not(:last-child) {
+      padding-right: $pad-1-3;
+    }
+  }
+
+  &.--id-strikes {
+    > ._strike {
+      min-width: 7.8em;
+      position: relative;
+      > ._perc {
+        font-size: $font-size-content-detail;
+        color: $col-content-caption;
+        margin-left: 0.27em;
+      }
+      > ._legIndicatorHolder {
+        position: absolute;
+        left: -1px;
+        top: 6px;
+      }
+    }
+    > ._delta {
+      min-width: 3.3em;
+    }
+    > ._price {
+      width: 100%;
+    }
+    > ._iv {
+      min-width: 3em;
+    }
+  }
+}
+
+.removeLegButton {
+  margin: -$pad-1-2;
+  margin-left: 0;
+  ._icon {
+    color: $col-error;
+    padding: $pad-1-2;
+    @include clickable-dim-on-hover;
+  }
+}

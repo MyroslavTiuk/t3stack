@@ -1,0 +1,249 @@
+@import '../../../../../theme/functions';
+@import '../../../../primitives/Typo/Typo.module';
+
+$border-main-lt-color: mix($col-light, $col-panel-contrast, 80);
+$border-main-lt: 1px solid $border-main-lt-color;
+$border-main-lt-md-color: mix($col-light, $col-panel-contrast, 50);
+$border-main-lt-md: 1px solid $border-main-lt-md-color;
+$border-between-cells: 1px solid rgba($col-light, 0.3);
+$border-atm: 2px solid $col-panel-contrast-dk50;
+
+.container {
+  position: relative;
+}
+.buffering {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $col-light-overlay;
+  z-index: $zidx-foreground;
+}
+
+.table {
+  margin-bottom: #{$leg-indicator-height / 2};
+  //width: 700px;
+  tr.--is-fixed {
+    position: fixed;
+    top: 0;
+  }
+}
+.scrollSpacer {
+  min-width: $pad;
+  min-height: $pad;
+}
+
+.cellTHDateMonth {
+  border-left: $border-main-lt-md;
+  border-right: $border-main-lt-md;
+  border-top: $border-main-lt-md;
+
+  &:not(.--has-passed) {
+    background-color: $col-panel-contrast-a20;
+  }
+  &.--has-passed {
+    background-color: $col-panel-contrast-a12;
+    color: $col-content-disabled;
+  }
+
+  .cellTHDateLast {
+  }
+  .cellTHDateFirst {
+  }
+}
+.cellTHDateDay {
+  border: $border-main-lt;
+  border-bottom: $border-main-lt-md;
+  text-align: center;
+  min-width: 1.5em;
+  &.--is-last-day {
+    background-color: $col-bg-dark-lt1;
+    color: $col-light;
+    vertical-align: middle;
+    > ._text {
+      display: block;
+    }
+  }
+
+  &.--has-passed {
+    color: $col-content-disabled;
+  }
+}
+
+.cellAxisTL,
+.cellTHDateAboveExp,
+.cellAxisTR {
+  border-top: $border-main-lt-md;
+}
+.cellTHStk {
+  border-top: $border-between-cells;
+}
+.cellAxisTR {
+  vertical-align: bottom;
+  border-right: $border-main-lt-md;
+}
+
+$cellCurLegWidth: #{$leg-indicator-width + $leg-indicator-triangle-width};
+.cellCurLegs {
+  position: sticky;
+  z-index: $zidx-foreground + 2;
+  left: -$cellCurLegWidth;
+  width: $cellCurLegWidth;
+  min-width: $cellCurLegWidth;
+
+  > ._indicator {
+    position: absolute;
+    right: -#{$leg-indicator-triangle-width * 0.75};
+  }
+}
+
+.cellAxisTL {
+  vertical-align: bottom;
+  text-align: left;
+  @extend .content-tag--anemic;
+}
+
+.cellTHStk,
+.cellAxisTL {
+  position: sticky;
+  z-index: $zidx-foreground + 1;
+  left: 0;
+  background-color: $col-light;
+  padding: 2px $pad-1-4 2px $pad-1-3;
+  &:not(.cellAxisTL) {
+    text-align: right;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: $border-main-lt-md-color;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: $border-main-lt-md-color;
+  }
+
+  tr.--is-itm > & {
+    background-color: mix($col-light, $col-panel-contrast, 80);
+  }
+  tr.--is-first & {
+    border-top: $border-main-lt-md;
+  }
+  tr.--is-last & {
+    border-bottom: $border-main-lt-md;
+  }
+}
+
+.cellTD {
+  position: relative;
+  border-left: $border-between-cells;
+  border-top: $border-between-cells;
+  height: toRem(20px);
+  &.--has-passed {
+    > ._display-text {
+      opacity: $col-opacity-disabled;
+    }
+  }
+  &.--is-last {
+    border-left: 2px solid rgba($col-light, 1);
+  }
+  > ._display-text {
+    height: 100%;
+    padding-right: 2px;
+    padding-left: 1px;
+    cursor: pointer;
+    text-align: right;
+
+    @include non-touch-screen {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  &:hover > ._hover-detail {
+    display: block;
+  }
+  > ._hover-detail {
+    display: none;
+    position: absolute;
+    z-index: $zidx-foreground + 2;
+    left: 50%;
+    @include paddingHorizontal($pad-1-3);
+    @include paddingVertical($pad-1-3);
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: 8;
+      width: 0;
+      height: 0;
+      border-left: 0.67em solid transparent;
+      border-right: 0.67em solid transparent;
+    }
+  }
+}
+.hover-stat {
+  > ._text {
+    @extend .content-pragmatic;
+    font-size: toRem(18px);
+    line-height: 160%;
+  }
+}
+
+tr {
+  &:not(.--is-itm) {
+    > .cellTD > ._hover-detail {
+      top: 2.6em;
+      &:before {
+        top: calc(-1em);
+        border-bottom: 1em solid white;
+      }
+    }
+    // First row's tds under the ATM line
+    + tr.--is-itm td {
+      border-top: $border-atm;
+    }
+  }
+
+  &.--is-itm {
+    > .cellTD > ._hover-detail {
+      bottom: 2.6em;
+      &:before {
+        bottom: calc(-1em);
+        border-top: 1em solid white;
+      }
+    }
+  }
+
+  // First date column
+  .cellTHStk + .cellTD > ._hover-detail {
+    transform: translateX(-20%);
+    &:before {
+      left: calc(20% - 0.5em);
+    }
+  }
+  // Second to Second-last date columns
+  .cellTD + .cellTD:not(.--is-last) > ._hover-detail {
+    transform: translateX(-50%);
+    &:before {
+      left: calc(50% - 0.5em);
+    }
+  }
+  // Last date column
+  .cellTD + .cellTD.--is-last > ._hover-detail {
+    transform: translateX(-80%);
+    &:before {
+      left: calc(80% - 0.5em);
+    }
+  }
+}

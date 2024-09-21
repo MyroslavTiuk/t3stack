@@ -1,0 +1,86 @@
+@import '../../../theme/common';
+
+$footer-min-height: 20px;
+
+.container {
+  min-height: 100vh;
+}
+
+.customLeft {
+  @include mobile-only {
+    + .logo {
+      display: none;
+    }
+  }
+  @include tablet-plus {
+    display: none;
+  }
+}
+
+.backBtn {
+  @include clickable;
+  color: $col-light;
+}
+
+.header-ctnr {
+  position: relative;
+  z-index: $zidx-header;
+  height: $header-height;
+
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+
+  @include tablet-to-tablet-large {
+    height: $header-height-md;
+  }
+  @include desktop-small-plus {
+    height: $header-height-lg;
+  }
+}
+.header {
+  background-color: $col-bg-dark;
+  padding: 0.5rem $mobile-horizontal-padding;
+  @include mobile-only {
+    &.--sticky {
+      position: sticky;
+      top: 0;
+    }
+  }
+  @include tablet-plus {
+    padding: 0.5rem 2rem;
+  }
+}
+
+.main-ctnr {
+
+  @include tablet-down {
+    @include theme-light {
+      background: $col-light;
+    }
+    @include theme-dark {
+      // todo:
+    }
+  }
+}
+
+.footer-ctnr {
+  padding: $pad;
+  @include tablet-plus {
+    padding: $pad-2;
+  }
+  min-height: $footer-min-height;
+  > ._footer {
+    width: 100%;
+    max-width: $bkpt-desktop-large;
+  }
+  background-color: $col-bg-dark;
+  color: $col-light;
+}
+
+.mobileTitle {
+  @include tablet-plus {
+    display: none;
+  }
+  > ._text {
+    color: $col-light;
+  }
+}

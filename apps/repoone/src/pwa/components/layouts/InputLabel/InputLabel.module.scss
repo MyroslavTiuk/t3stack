@@ -1,0 +1,17 @@
+@import '../../../theme/functions';
+
+.container {
+  &.--inline {
+  }
+  &.--side-by-side {
+    > ._label {
+      display: flex;
+      align-items: baseline;
+
+      > ._labelText {
+      }
+      > ._inputCtnr {
+      }
+    }
+  }
+}

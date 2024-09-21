@@ -1,0 +1,83 @@
+@import '../../../theme/common';
+
+.container {
+  background-color: $col-light;
+  margin-bottom: $pad;
+  @include mobile-only {
+    background-color: $col-light;
+  }
+}
+.content {
+  @include card-style(1);
+}
+
+.midFeedAd {
+  width: calc(100vw - var(--scrollbarWidth));
+  @include mobile-only {
+    @include marginHorizontal(-$mobile-horizontal-padding);
+  }
+}
+
+.search-field {
+  > ._input {
+    @include marginVertical($pad-1-2);
+    @include tablet-plus {
+      margin-top: $pad-1-4;
+    }
+  }
+  text-align: right;
+  > ._input {
+    display: inline-block;
+    width: 15em;
+    text-align: initial;
+  }
+}
+
+.strat-groups {
+  margin-bottom: $pad-1-2;
+  align-items: stretch;
+  flex-wrap: wrap;
+  &.--plain {
+    max-width: 900px;
+    margin-right: -$pad;
+  }
+}
+.strat-group-card {
+  margin-bottom: $pad;
+  min-width: 7.3em;
+  flex: 1 0 auto;
+  @include mobile-only {
+    width: 100%;
+  }
+  &.--plain {
+    &:not(:last-child) {
+      margin-right: $pad-1-2;
+      @include tablet-large-down {
+        margin-right: $pad-1-2;
+      }
+    }
+  }
+  &.--own-line {
+    max-width: 32em;
+    > ._itemHolder {
+      display: flex;
+      flex-wrap: wrap;
+
+      > ._item {
+        flex-basis: 25%;
+        max-width: 8em;
+      }
+    }
+  }
+
+  > ._header {
+    margin-bottom: $pad-1-2;
+    @include tablet-plus {
+      margin-bottom: $pad-1-2;
+    }
+  }
+}
+
+.stratLink {
+  @include marginVertical($pad-1-3);
+}

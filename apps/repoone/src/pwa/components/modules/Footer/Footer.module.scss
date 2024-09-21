@@ -1,0 +1,50 @@
+@import '../../../theme/functions';
+
+.container {
+}
+.group {
+  flex-grow: 1;
+  @include mobile-only {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  @include tablet-to-tablet-large {
+    width: 33.33%;
+    flex-basis: 33.33%;
+  }
+  @include desktop-small-plus {
+  }
+}
+
+.itemLink,
+a.itemLink,
+a.itemLink:hover,
+a.itemLink:visited {
+  &:not(.--more) {
+    color: transparentize($col-content-on-dark, 0.15);
+  }
+  line-height: 163%;
+  display: inline-block;
+}
+
+.copyright {
+  color: $col-content-caption-on-dark;
+}
+
+.colMenu {
+  > ._item {
+    @include mobile-only {
+      width: 100%;
+      flex-basis: 100%;
+    }
+    @include tablet-to-tablet-large {
+      width: 33.33%;
+      flex-basis: 33.33%;
+    }
+    @include desktop-small-plus {
+      width: 25%;
+      flex-basis: 25%;
+      max-width: 18em;
+    }
+  }
+}

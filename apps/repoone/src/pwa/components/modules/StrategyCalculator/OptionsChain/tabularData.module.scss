@@ -1,0 +1,78 @@
+@import '../../../../theme/functions';
+@import '../../../primitives/Typo/Typo.module';
+
+@mixin rowData {
+  border-left: $border;
+  border-right: $border;
+  border-bottom: $border-light-2;
+  &:last-child {
+    border-bottom: $border;
+  }
+}
+
+@mixin rowPale {
+  background-color: $col-light;
+}
+@mixin rowPaleHighlight {
+  background-color: mix($col-panel-contrast, $col-light, 23%);
+}
+@mixin rowPaleShaded {
+  background-color: mix($col-panel-contrast, $col-light, 10%);
+}
+@mixin rowPaleShadedHighlight {
+  background-color: mix($col-panel-contrast, $col-light, 26%);
+}
+
+@mixin rowDark {
+  background-color: mix($col-panel-contrast, $col-light, 15%);
+}
+@mixin rowDarkHighlight {
+  background-color: mix($col-panel-contrast, $col-light, 30%);
+}
+@mixin rowDarkShaded {
+  background-color: mix($col-panel-contrast, $col-light, 22%);
+}
+@mixin rowDarkShadedHighlight {
+  background-color: mix($col-panel-contrast, $col-light, 36%);
+}
+
+@mixin rowEven {
+  > ._cell-data {
+    @include rowPale;
+  }
+  > ._cell-strike,
+  &.--strike-above > ._cell-data.--type-put,
+  &.--strike-below > ._cell-data.--type-call {
+    @include rowDark;
+  }
+  &:hover {
+    > ._cell-data {
+      @include rowPaleHighlight;
+    }
+    > ._cell-data._cell-strike,
+    &.--strike-above > ._cell-data.--type-put,
+    &.--strike-below > ._cell-data.--type-call {
+      @include rowDarkHighlight;
+    }
+  }
+}
+@mixin rowOdd {
+  > ._cell-data {
+    @include rowPaleShaded;
+  }
+  > ._cell-strike,
+  &.--strike-above > ._cell-data.--type-put,
+  &.--strike-below > ._cell-data.--type-call {
+    @include rowDarkShaded;
+  }
+  &:hover {
+    > ._cell-data {
+      @include rowPaleShadedHighlight;
+    }
+    > ._cell-data._cell-strike,
+    &.--strike-above > ._cell-data.--type-put,
+    &.--strike-below > ._cell-data.--type-call {
+      @include rowDarkShadedHighlight;
+    }
+  }
+}

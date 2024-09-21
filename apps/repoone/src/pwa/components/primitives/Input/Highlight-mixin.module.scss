@@ -1,0 +1,40 @@
+@import '../../../theme/variables';
+
+@mixin inputHighlightFirm {
+  //border-color: $col-linked-field;
+  //background-color: transparentize(
+  //  mix($col-primary-blue, $col-gray-50, 70%),
+  //  0.92
+  //);
+}
+
+@mixin inputHighlight {
+  &:hover,
+  &:focus {
+    background-color: transparentize($col-gray-50, 0.94);
+  }
+  &.--highlighted {
+    @include inputHighlightFirm;
+  }
+  &.--highlighted-warning:not(:focus) {
+    @include theme-any {
+      color: $col-warning;
+    }
+    background-color: transparentize($col-warning, 0.92);
+  }
+}
+
+@mixin inputHighlightLinked {
+  border-color: mix($col-linked-field, $col-guide, 66%);
+  //background-color: transparentize($col-linked-field, 0.92);
+  &:hover,
+  &:focus {
+    //background-color: transparentize($col-linked-field, 0.88);
+  }
+  &.--highlighted-warning:not(:focus) {
+    @include theme-any {
+      color: $col-warning;
+    }
+    background-color: transparentize($col-warning, 0.92);
+  }
+}

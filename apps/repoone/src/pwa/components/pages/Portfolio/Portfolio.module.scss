@@ -1,0 +1,223 @@
+﻿@import '../../../theme/common';
+@import '../../primitives/Typo/Typo.module';
+
+.container {
+  padding-bottom: $pad-4;
+  .tableContent {
+    flex: 1;
+    @include tablet-plus {
+      margin-right: $pad;
+    }
+  }
+  .selectTabMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b7b7b7;
+    width: 100%;
+    min-height: 350px;
+  }
+  table {
+    @include table;
+    width: 100%;
+    tr {
+      &.groupSymbolName {
+        background-color: $col-panel-contrast-dk24;
+        color: $col-light;
+        > td {
+          @extend .content-field-label--anemic;
+        }
+      }
+      > td._title {
+        @include paddingVertical($pad-1-2);
+        @include tablet-plus {
+          @include paddingVertical($pad-1-3);
+        }
+        > ._text {
+          @extend .content-pragmatic;
+          @include clickable-text--subtle;
+        }
+      }
+    }
+
+    th,
+    td {
+      @include paddingHorizontal($pad-1-2);
+      &:first-child {
+        padding-left: $pad;
+      }
+      &:last-child {
+        padding-right: $pad;
+      }
+
+      &.--credit {
+        color: $col-credit-em;
+      }
+      &.--debit {
+        color: $col-debit-em;
+      }
+      &.--low-relevance {
+        color: $col-gray-72;
+      }
+    }
+
+    tr:hover .iconContainer {
+      visibility: visible;
+    }
+    .iconContainer {
+      @include clickable;
+      min-width: 26px;
+      visibility: hidden;
+      padding: $pad-1-3;
+      @include marginHorizontal(-$pad-1-3);
+    }
+  }
+
+  .closeIcon {
+    color: $col-error;
+    width: 14px;
+    height: 14px;
+  }
+
+  .calculationsTableDesktop {
+    padding: $pad;
+    > ._tableContainer {
+      display: flex;
+      flex-direction: row;
+
+      > ._verticalAds {
+      }
+    }
+
+    > ._horizontalAds {
+      width: 100%;
+    }
+  }
+
+  .calculationsTableMobile {
+    position: relative;
+
+    > ._header {
+      margin: $pad;
+    }
+    > ._tabsContainer {
+      display: flex;
+      flex-direction: row;
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      @include paddingHorizontal($pad);
+
+      > ._tabsItem {
+        padding: $pad-1-2 $pad;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: $col-light;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dddd;
+        border-bottom: 0;
+        margin-right: 5px;
+        cursor: default;
+        color: $col-content-subtle;
+        &.--active {
+          color: $col-content;
+          position: relative;
+          z-index: $zidx-foreground;
+          font-weight: $font-weight-bold;
+        }
+      }
+      > ._tabItemEndSpacer {
+        min-width: $pad;
+      }
+    }
+
+    ._tabsContainer {
+    }
+
+    > ._tabContent {
+      @include paddingVertical($pad);
+      min-height: 350px;
+      background-color: $col-light;
+      position: relative;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+
+      .detailedItemContainer {
+        flex: 1;
+        width: 100%;
+        border: $border-table;
+
+        + .detailedItemContainer td {
+          border-top-width: 0;
+          border-bottom-width: 1px;
+        }
+        td {
+          border: 1px solid rgba(145, 166, 188, 0.5);
+          border-bottom-width: 0;
+          border-left-width: 3px;
+          border-right: 0;
+          padding: 0;
+          ._detailedItemHeader {
+            display: flex;
+            background-color: $col-panel-contrast-lt70;
+            font-weight: $font-weight-semibold;
+
+            @include paddingHorizontal($pad-1-2);
+            @include paddingVertical($pad-1-2);
+            > ._title {
+              flex: 1;
+            }
+          }
+
+          ._detailedContent {
+            display: flex;
+            margin: $pad $pad $pad-1-2;
+            ._leftContent {
+              margin-right: $pad-1-3;
+            }
+            ._leftContent,
+            ._rightContent {
+              flex: 1;
+
+              > ._detailItem {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: $pad-1-3;
+                > ._detailedItemValue {
+                  text-align: right;
+                  &.--credit {
+                    color: $col-credit-em;
+                  }
+                  &.--debit {
+                    color: $col-debit-em;
+                  }
+                  &.--low-relevance {
+                    color: $col-gray-72;
+                  }
+                }
+              }
+            }
+          }
+          ._deleteButtonContainer {
+            display: flex;
+            justify-content: flex-end;
+            @include marginHorizontal($pad);
+            @include marginVertical($pad-1-2);
+            .deleteText {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.hintBox {
+  background-color: $col-panel-contrast-a08;
+}

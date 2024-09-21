@@ -1,0 +1,32 @@
+@import '../../../../theme/common';
+
+.container {
+}
+
+.tabHolder {
+  @include marginHorizontal(-#{$mobile-horizontal-padding});
+  @include tablet-plus {
+    @include marginHorizontal(#{-$pad});
+  }
+}
+
+.search-ctnr {
+  margin-bottom: $pad;
+  > ._label {
+    color: $col-content-on-dark;
+  }
+}
+
+.fine-print {
+  color: $col-content-caption;
+  line-height: $line-height-content;
+  font-weight: $font-weight-light;
+}
+
+.tabContainer {
+  min-height: 14em;
+  padding: $pad $mobile-horizontal-padding 0;
+  @include tablet-plus {
+    padding: $pad-2 $pad 0;
+  }
+}

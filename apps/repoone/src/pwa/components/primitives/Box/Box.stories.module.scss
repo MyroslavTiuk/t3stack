@@ -1,0 +1,8 @@
+.exampleBox {
+  border: 1px solid blue;
+
+  > ._child {
+    min-width: 25%;
+    border: 1px solid red;
+  }
+}

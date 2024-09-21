@@ -1,0 +1,98 @@
+﻿@import '../../../theme/common';
+@import '../../../theme/functions';
+@import '../../primitives/Input/Input-style.module';
+@import '../../primitives/Typo/Typo.module';
+
+.feedbackModal {
+  .form {
+    max-width: 40em;
+  }
+
+  .messageBox {
+    @extend .content-pragmatic;
+    @include input-style;
+    @include input-style-filled;
+    border: 1px solid $col-panel-contrast-a50;
+    padding: $pad-1-3 $pad-1-2;
+    width: 100%;
+    height: 6em;
+  }
+
+  .lineInput {
+    width: 100%;
+    @include tablet-plus {
+      max-width: 20em;
+    }
+  }
+}
+
+.feedbackMask {
+  @include tablet-plus {
+    width: 34px;
+    height: 34px;
+    margin-bottom: $pad-3;
+    transform: rotate(-90deg);
+  }
+}
+
+.feedbackButton {
+  @include box-shadow(1);
+  background-color: mix($col-primary-blue, $col-gray-86, 62%);
+  color: $col-content-on-dark;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  ._text {
+    line-height: 34px !important;
+    margin-right: 5px;
+  }
+  @include mobile-only {
+    @include paddingHorizontal($pad-1-2);
+    border-top-right-radius: 0 !important;
+    ._text {
+      animation: slideRight $txn-slow ease-in-out 2s;
+      animation-fill-mode: forwards;
+      overflow-x: hidden;
+      text-indent: 2px;
+    }
+  }
+  ._buttonChildrenContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    > ._icon {
+      width: 23px;
+      height: 21px;
+      color: rgba($col-light, 0.8);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(32px);
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(32px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    max-width: 8em;
+    margin-right: 5px;
+  }
+  to {
+    max-width: 1px;
+    margin-right: 0;
+  }
+}

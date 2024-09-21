@@ -1,0 +1,4 @@
+﻿export enum CALCULATION_PERMISSION {
+  PUBLIC = 'PUBLIC',
+  PRIVATE = 'PRIVATE',
+}

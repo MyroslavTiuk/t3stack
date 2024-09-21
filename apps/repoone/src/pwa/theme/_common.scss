@@ -1,0 +1,146 @@
+@import './functions';
+
+@mixin card-style($level: 1, $contrast-level: 1) {
+  @if ($contrast-level == 1) {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  } @else if ($contrast-level == 2) {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  }
+  :global(.theme--light) & {
+    background-color: $col-light;
+  }
+  :global(.theme--dark) & {
+    @if ($level == 2) {
+      background-color: $col-bg-dark-lt1;
+    } @else {
+      background-color: $col-bg-dark-lt2;
+    }
+  }
+}
+
+@mixin card-padding {
+  padding: $pad $pad-2;
+}
+
+@mixin box-shadow($level: 1) {
+  @if ($level == 1) {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  } @else if ($level == 2) {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  } @else if ($level == 3) {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@mixin menu-ctnr {
+  @include paddingVertical($pad-1-3);
+}
+@mixin menu-item {
+  padding: 12px $pad;
+  @include clickable;
+  &:hover {
+    background-color: $col-panel-contrast-a12;
+  }
+}
+
+@mixin triangle(
+  $direction,
+  $color: currentcolor,
+  $sizeBase: 0.25em,
+  $sizePoint: ($sizeBase * 4/3)
+) {
+  @if not index(top right bottom left, $direction) {
+    @error "Direction must be either `top`, `right`, `bottom` or `left`.";
+  }
+
+  width: 0;
+  height: 0;
+  content: '';
+  z-index: 2;
+  border-#{opposite-direction($direction)}: $sizePoint solid $color;
+
+  $perpendicular-borders: #{$sizeBase} solid transparent;
+
+  @if $direction == top or $direction == bottom {
+    border-left: $perpendicular-borders;
+    border-right: $perpendicular-borders;
+  } @else if $direction == right or $direction == left {
+    border-bottom: $perpendicular-borders;
+    border-top: $perpendicular-borders;
+  }
+}
+@mixin calculator-inset-triangle {
+  @include triangle('left', $col-light, #{$pad-2 / 2}, #{$pad-2});
+  z-index: #{$zidx-content-overlay + 1};
+  position: absolute;
+  right: -43px; // not sure why it works out to this
+  filter: drop-shadow(-3px 0px 2px rgba(0, 0, 0, 0.06));
+}
+
+@mixin open-new-target {
+  $sz: 2.5px;
+  position: relative;
+  &:after {
+    content: '';
+    height: 5px;
+    width: 5px;
+    display: inline-block;
+    top: calc(0.5em - 3px);
+    position: absolute;
+    border-top: $sz solid transparentize($col-link, 0.3);
+    border-right: $sz solid transparentize($col-link, 0.3);
+    border-bottom: $sz solid transparent;
+    border-left: $sz solid transparent;
+  }
+}
+
+@mixin clickable {
+  cursor: pointer;
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+@mixin clickable-dim-on-hover {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+@mixin table {
+  border-collapse: separate;
+  border: $border-table;
+  > thead > tr {
+    &:last-of-type {
+      > th {
+        border-bottom: $border-table;
+      }
+    }
+    > th {
+      //@extend .content-tag--anemic;
+      font-size: toRem(11.5px);
+      font-family: $font-content;
+      text-transform: uppercase;
+      font-weight: $font-weight-semibold;
+      color: $col-content;
+      :global(.theme--dark) & {
+        color: $col-content-on-dark;
+      }
+      @include paddingVertical($pad-1-4);
+    }
+  }
+  > tbody > tr {
+    > td {
+      @include paddingVertical($pad-1-4);
+    }
+    &:nth-child(even) {
+      > td {
+        background-color: $col-panel-contrast-a08;
+      }
+    }
+  }
+}

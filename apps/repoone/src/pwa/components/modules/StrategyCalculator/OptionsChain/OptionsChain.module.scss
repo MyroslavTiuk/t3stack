@@ -1,0 +1,340 @@
+@import '../../../../theme/functions';
+@import '../../../primitives/Typo/Typo.module';
+@import './tabularData.module';
+
+$col-pad: $pad-1-2;
+$col-highlighted: $col-link;
+
+$border-color: $col-panel-contrast;
+$border: 1px solid $border-color;
+$border-light: 1px solid rgba($col-panel-contrast, 0.3);
+$border-light-2: 1px solid rgba($col-panel-contrast, 0.1);
+
+.container {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  min-width: 20em;
+
+  background-color: $col-light;
+  padding: $pad;
+  @include tablet-large-down {
+    @include paddingHorizontal($pad-1-2);
+  }
+
+  > ._stick-left {
+    position: sticky;
+    left: 0;
+  }
+}
+
+.closeIcon {
+  position: absolute;
+  cursor: pointer;
+  top: #{$pad-1-3};
+  right: #{$pad-1-2};
+  ._stick-left & {
+    &:not(.--draggable) {
+      top: #{-$pad + $pad-1-3};
+    }
+    right: #{-$pad-1-2 + $pad-1-2};
+  }
+  padding: 6px /* Delta of small to medium icon*/;
+  > svg {
+    stroke: $col-gray-72;
+  }
+}
+
+.col-padding {
+  @include paddingHorizontal($col-pad / 2);
+}
+
+@mixin cell-with-dash {
+  &:before {
+    content: '';
+    position: absolute;
+    background-color: transparentize($col-content-dimmed, 0.4);
+    z-index: 1;
+    height: 1px;
+    top: 50%;
+  }
+}
+
+.chain {
+  @include mobile-only {
+    @include marginHorizontal(#{-$pad-1-2});
+    @include paddingHorizontal($pad-1-2);
+  }
+
+  > ._table {
+    > thead > ._row-header {
+      border-left: $border;
+      border-right: $border;
+      > th {
+        @extend .col-padding;
+        @extend .content-detail;
+        @include paddingVertical($pad-1-3);
+        border-top: $border;
+
+        // Pseudo border-bottom (border-bottom position sticky is buggy)
+        box-shadow: 0 1px 0 0 $border-color;
+
+        > ._text {
+          @include paddingHorizontal(2px);
+          @include marginHorizontal(-2px);
+          position: relative;
+          background-color: inherit;
+          z-index: 2;
+        }
+
+        &.--code-b,
+        &.--code-m,
+        &.--code-a {
+          @include cell-with-dash;
+        }
+        &.--code-m,
+        &.--code-a {
+          border-left: none !important;
+        }
+        &.--code-b:before {
+          left: 50%;
+          width: 50%;
+        }
+        &.--code-a:before {
+          left: 0;
+          width: 50%;
+        }
+        &.--code-m:before {
+          left: 0;
+          width: 100%;
+        }
+
+        position: sticky;
+        z-index: $zidx-content + 1;
+        top: -1.4em;
+        background-color: #fff;
+
+        &:not(.--first) {
+          border-left: $border-light;
+        }
+        &._cell-strike {
+          border-left: $border;
+          border-right: $border;
+          background-color: lighten($col-panel-contrast, 30%);
+        }
+      }
+    }
+    > tbody > ._row-data {
+      @include rowData;
+
+      > ._chg {
+        font-size: toRem(11.5px);
+        font-weight: $font-weight-medium;
+        letter-spacing: -0.8px;
+        &.--chg-plus {
+          color: $col-credit-em;
+        }
+        &.--chg-neg {
+          color: $col-debit-em;
+        }
+      }
+
+      @mixin itm {
+        > ._cell-strike,
+        &.--strike-above > ._cell-data.--type-put,
+        &.--strike-below > ._cell-data.--type-call {
+          @content;
+        }
+      }
+      > ._cell-strike {
+        font-weight: bold;
+        position: relative;
+        z-index: $zidx-content;
+        > ._leg-indicator {
+          &.--is-dimmed {
+            opacity: 0.4;
+          }
+          &.--on-right {
+            position: absolute;
+            right: -$leg-indicator-width;
+          }
+          &:not(.--on-right) {
+            position: absolute;
+            left: -$leg-indicator-width;
+          }
+        }
+        > ._percFromCur {
+          font-size: toRem(11.5px);
+          font-weight: $font-weight-regular;
+          color: $col-content-caption;
+          margin-left: 0.27em;
+          &.--rpad-1dig {
+            margin-left: 0.5em;
+          }
+        }
+      }
+      &:nth-child(even) {
+        @include rowEven;
+      }
+      &:nth-child(odd) {
+        @include rowOdd;
+      }
+      > ._cell-data {
+        @extend .col-padding;
+        @include paddingVertical($pad-1-4);
+        @extend .content-detail--anemic;
+        color: $col-content;
+        > ._text {
+          @include paddingHorizontal(2px);
+          @include marginHorizontal(-2px);
+          background-color: inherit;
+          position: relative;
+          z-index: 2;
+        }
+
+        &.--code-m,
+        &.--code-a {
+          border-left: none !important;
+          position: relative;
+          @include cell-with-dash;
+          &:before {
+            left: -0.35em;
+            width: 100%;
+          }
+        }
+
+        &:not(.--first):not(._cell-strike) {
+          border-left: $border-light;
+        }
+        &.--is-clickable-cell {
+          cursor: pointer;
+          text-decoration: underline;
+          text-decoration-color: rgba($col-highlighted, 0.3);
+
+          &.--is-recommended {
+            color: $col-highlighted;
+            text-decoration-color: rgba($col-highlighted, 0.3);
+          }
+          &.--is-discouraged {
+            color: rgba($col-content, 0.75);
+          }
+
+          &:hover {
+            &.--is-recommended {
+              text-decoration-color: $col-highlighted;
+            }
+            &.--is-discouraged {
+              color: $col-content;
+              text-decoration-color: $col-content;
+            }
+            text-decoration: underline;
+          }
+        }
+      }
+      > ._cell-strike {
+        border-left: $border;
+        border-right: $border;
+      }
+      &.--strike-above + .--strike-below > td {
+        border-top: $border;
+      }
+      &.--last-traded {
+        > td {
+          @include paddingVertical(0.2em);
+          background-color: $col-panel-contrast;
+          font-weight: $font-weight-semibold;
+          &:not(._price) {
+            @extend .content-tag--anemic;
+          }
+          &._price,
+          > ._price {
+            @extend .content-detail--anemic;
+          }
+          color: $col-content-on-dark;
+        }
+      }
+    }
+  }
+  > ._spacer {
+    min-width: $pad-1-2;
+  }
+}
+
+.dropdown {
+  width: 8.5em;
+}
+.dropdownInput {
+  @extend .content-tag--anemic;
+  font-weight: $font-weight-bold;
+}
+
+.cell-heading {
+  flex-grow: 1;
+  > ._text {
+    line-height: 1.2rem;
+  }
+}
+
+.cell-op-type {
+  flex-grow: 1;
+  &.--align-left {
+    text-align: left;
+  }
+  > .--text-link {
+    @include paddingVertical($pad-1-3);
+  }
+  > .--text {
+    @include paddingVertical($pad-1-3);
+    &.--with-hide-button {
+      padding-right: $pad-1-4;
+    }
+  }
+}
+
+.clickable {
+  @include clickable;
+}
+
+.cell-expiry {
+  white-space: nowrap;
+  @extend .content-tag;
+  @include paddingVertical($pad-1-3);
+}
+
+.expiry-selector {
+  > ._header {
+    margin-bottom: 0.33em;
+    &.--draggable {
+      @include marginHorizontal(-$pad);
+      margin-top: -$pad;
+      @include paddingHorizontal($pad);
+      padding-top: $pad;
+      cursor: all-scroll;
+    }
+  }
+  > ._expiry-scroller {
+    @include mobile-only {
+      overflow-x: auto;
+      padding-bottom: 10px;
+      @include marginHorizontal(#{-$pad-1-2});
+      @include paddingHorizontal($pad-1-2);
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
+
+.show-hidden-strikes {
+  @include paddingVertical($pad-1-2);
+}
+
+.fauxHighlight {
+  color: $col-highlighted;
+}
+.textBold {
+  font-weight: $font-weight-bold;
+}

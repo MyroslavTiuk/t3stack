@@ -1,0 +1,26 @@
+@import '../../../../theme/functions';
+
+.iconHolder {
+  width: 33px;
+  height: 29px;
+  border: 1px solid $col-panel-contrast-a20;
+  color: $col-panel-contrast-dk12;
+}
+
+$szrat: 0.7;
+.menuItem {
+  font-size: #{($font-size-content-pragmatic * $szrat) + 0.1 + (
+      $font-size-content * (1 - $szrat)
+    )} !important;
+  color: $col-content;
+  &:hover {
+    color: $col-link;
+  }
+  text-decoration: underline;
+  text-decoration-color: rgba($col-link, 0.3);
+}
+
+.sub {
+  font-size: 90%;
+  color: $col-content-caption;
+}

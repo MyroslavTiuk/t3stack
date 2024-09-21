@@ -1,0 +1,233 @@
+@import '../../../theme/common';
+
+$bubble-bg-color: mix($col-panel-contrast, $col-light, 25%);
+$bubble-border-color: mix($col-panel-contrast, $col-light, 60%);
+$bubble-ph: $pad-1-3;
+$bubble-pv: 1px;
+$bubble-triangle-width: 1rem;
+$bubble-triangle-height: 0.6rem;
+$bubble-triangle-offset: -0.1rem;
+
+$tick-height: 11px;
+$tick-height-short: 5px;
+
+$rail-track-height: 2px;
+$rail-track-height-short: 1px;
+$handle-size: 12px;
+$handle-size-width: 8px;
+$handle-size-small: 5px;
+
+$price-label-offset: 3px;
+$tick-label-offset: 1px;
+
+.sliderContainer {
+  padding-top: calc(
+    #{$bubble-pv * 2 + $rail-track-height} + #{$bubble-triangle-height + $bubble-triangle-offset} +
+      1rem
+  );
+  padding-bottom: calc(1em + #{$tick-height/2});
+  &.--short {
+    padding-top: calc(#{$bubble-pv * 2 + $rail-track-height-short} + 1rem);
+    padding-bottom: calc(0.6em + #{$tick-height/2});
+  }
+  padding-left: 1em;
+  padding-right: 1.8em;
+}
+
+.sliderInner {
+  position: relative;
+}
+
+.rail_background {
+  z-index: 1;
+  position: absolute;
+  height: 30px;
+  width: 100%;
+  transform: translate(0%, -50%);
+  cursor: pointer;
+}
+
+.rail_visible {
+  position: absolute;
+  height: $rail-track-height;
+  .--short & {
+    height: $rail-track-height-short;
+  }
+  width: 100%;
+  transform: translate(0%, -50%);
+  pointer-events: none;
+  cursor: pointer;
+  background-color: $col-guide-subtle;
+}
+
+.track {
+  position: absolute;
+  transform: translate(0%, -50%);
+  height: $rail-track-height;
+  .--short & {
+    height: $rail-track-height-short;
+  }
+  z-index: 1;
+  cursor: pointer;
+  &.--filled {
+    background-color: red;
+  }
+}
+
+.handle_controller {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  top: -10px;
+  width: 40px;
+  height: 40px;
+  .--short & {
+    top: 0;
+    width: 20px;
+    height: 20px;
+  }
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.handle_visible {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: $handle-size-width;
+  height: $handle-size;
+  &.--small {
+    width: $handle-size-small;
+    height: $handle-size-small;
+    border-radius: #{$handle-size-small / 2};
+  }
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+  &:not(.--disabled) {
+    background-color: mix($col-panel-contrast, $col-light, 70%);
+  }
+  &.--disabled {
+    background-color: $col-content-disabled;
+  }
+
+  > ._bubbleMain {
+    position: absolute;
+    top: calc(
+      -1rem - #{$bubble-pv} - #{$bubble-triangle-height +
+        $bubble-triangle-offset}
+    );
+    min-width: 3.5em;
+    text-align: center;
+    left: #{$handle-size-width / 2};
+    @include paddingHorizontal($bubble-ph);
+    @include paddingVertical($bubble-pv);
+    transform: translateX(calc(-50%));
+    border-radius: $bubble-border-radius;
+    background-color: $bubble-bg-color;
+    border: 1px solid $bubble-border-color;
+
+    &:after {
+      position: absolute;
+      bottom: -$bubble-triangle-height;
+      left: calc(50% - #{$bubble-triangle-width / 2});
+      @include triangle(
+        'bottom',
+        $bubble-bg-color,
+        #{$bubble-triangle-width / 2},
+        $bubble-triangle-height
+      );
+    }
+    &:before {
+      $multi: 1.22;
+      position: absolute;
+      bottom: calc(-#{$bubble-triangle-height * $multi});
+      left: calc(50% - #{$bubble-triangle-width / 2} * #{$multi});
+      @include triangle(
+        'bottom',
+        $bubble-border-color,
+        #{$bubble-triangle-width * $multi / 2},
+        $bubble-triangle-height * $multi
+      );
+    }
+  }
+}
+
+.tick_mark {
+  position: absolute;
+  margin-top: #{1px - $tick-height / 2};
+  height: $tick-height;
+  .--short & {
+    margin-top: #{-$tick-height-short / 2};
+    height: $tick-height-short;
+  }
+  width: 1px;
+  background-color: $col-guide-subtle;
+}
+
+.tick_label {
+  position: absolute;
+  bottom: #{$tick-height / 2 + $tick-label-offset};
+  .--short & {
+    bottom: #{$tick-height-short / 2 + $tick-label-offset};
+  }
+  text-align: center;
+  > ._text {
+    &.--disabled {
+      color: $col-content-disabled;
+    }
+    &:not(.--disabled) {
+      color: $col-content-caption;
+    }
+    .--short & {
+      font-size: $font-size-content-minor / $font-ratio;
+    }
+  }
+}
+
+@import '../Typo/Typo.module';
+
+.priceLabels {
+  position: absolute;
+  margin-top: #{$tick-height / 2 + $price-label-offset};
+  .--short & {
+    margin-top: #{$tick-height-short / 2};
+  }
+  left: 0;
+  right: 0;
+  text-align: center;
+  > ._mid {
+    position: absolute;
+    transform: translateX(-50%);
+  }
+  > ._bid {
+    transform: translateX(-50%);
+  }
+  > ._ask {
+    transform: translateX(50%);
+  }
+  > ._bmaLabel {
+    z-index: 2;
+    font-weight: $font-weight-medium;
+    @include clickable;
+    @include clickable-text;
+    .--short & {
+      font-size: $font-size-content-minor;
+    }
+    &.--disabled {
+      color: $col-content-disabled;
+    }
+  }
+}
+
+.iVSlider {
+  .ticksHolder {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .tick_label {
+    > ._text {
+      font-size: 13.5px;
+    }
+  }
+}

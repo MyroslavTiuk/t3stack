@@ -1,0 +1,40 @@
+module.exports = {
+  extends: [
+    "next",
+    "turbo",
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals",
+  ],
+  plugins: ["@typescript-eslint", "react", "unused-imports"],
+  rules: {
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      {
+        prefer: "type-imports",
+        fixStyle: "inline-type-imports",
+      },
+    ],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "prefer-const": "off",
+    "prefer-spread": "off",
+    "no-console": "off",
+    "unused-imports/no-unused-imports": "error",
+    "turbo/no-undeclared-env-vars": "off",
+  },
+  env: {
+    browser: true,
+    jest: true,
+    node: true,
+  },
+  parser: "@typescript-eslint/parser",
+};

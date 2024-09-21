@@ -1,0 +1,4 @@
+﻿export enum RESULTS_VISUALIZATION {
+  MATRIX = 'MATRIX',
+  LINE_GRAPH = 'LINE_GRAPH',
+}

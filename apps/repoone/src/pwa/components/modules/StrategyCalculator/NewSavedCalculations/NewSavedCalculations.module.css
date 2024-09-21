@@ -1,0 +1,8 @@
+.hideSavedCalcs {
+  transition: all 0.1s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  position: relative;
+  z-index: -1;
+  transform: translateX(-100%);
+}

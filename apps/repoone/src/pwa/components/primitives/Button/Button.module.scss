@@ -1,0 +1,256 @@
+@import '../../../theme/variables';
+@import '../../../theme/functions';
+@import '../Typo/Typo.module';
+
+$h-l: 55px;
+$h-m: 40px;
+$h-s: 32px;
+$h-xs: 27px;
+
+@mixin on-dark() {
+  @include theme-any {
+    &,
+    &:visited,
+    &:hover,
+    &:hover:visited {
+      color: $col-content-on-dark;
+    }
+  }
+}
+
+.button-main {
+  @include paddingVertical(0);
+  @extend .content--anemic;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  font-weight: $font-weight-medium;
+  border-radius: $button-radius;
+  &.--inSet {
+    &:not(.--first) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      margin-left: 1px;
+    }
+    &:not(.--last) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  text-align: center;
+  border-color: transparent;
+  border-width: 0;
+
+  transition: background-color $txn-slow;
+
+  // size medium
+  @include paddingHorizontal($pad);
+  line-height: $h-m;
+  &.--style-round {
+    border-radius: #{$h-m / 2};
+    @include paddingHorizontal($pad-2);
+  }
+  &.--style-square {
+    border-radius: 0;
+  }
+  &.--style-stout {
+    min-width: 6em;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+  &:hover:not(.--state-disabled) {
+    transition: background-color $txn-swift;
+    text-decoration: none;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+.--var-full-width {
+  display: flex;
+  width: 100%;
+}
+.--var-full-width-mobile {
+  @include mobile-only {
+    display: flex;
+    width: 100%;
+  }
+}
+
+.--size-large {
+  @include paddingHorizontal($pad-2);
+  font-size: $font-size-content;
+  line-height: $h-l;
+
+  &.--style-round {
+    border-radius: #{$h-l / 2};
+    @include paddingHorizontal($pad-3);
+  }
+}
+
+.--size-small {
+  @include paddingHorizontal($pad-1-2);
+  @extend .content-pragmatic--anemic;
+  line-height: $h-s;
+
+  &.--style-round {
+    border-radius: #{$h-s / 2};
+    @include paddingHorizontal($pad);
+  }
+}
+
+.--size-x-small {
+  @include paddingHorizontal($pad-1-2);
+  @extend .content-pragmatic--anemic;
+  line-height: $h-xs;
+
+  &.--style-round {
+    border-radius: #{$h-xs / 2};
+    @include paddingHorizontal($pad);
+  }
+}
+
+.--style-primary {
+  &:not(.--state-disabled):not(.--style-outline):not(.--style-ghost) {
+    &:not(.--style-light) {
+      @include on-dark;
+      background-color: $col-primary-blue;
+      &:hover:not(.--state-disabled) {
+        background-color: lighten($col-primary-blue, 6%);
+      }
+    }
+    &.--style-light {
+      background-color: mix($col-light, $col-primary-blue, 70%);
+      &:hover:not(.--state-disabled) {
+        background-color: mix($col-light, $col-primary-blue, 76%);
+      }
+    }
+  }
+}
+
+.--style-secondary {
+  @include on-dark;
+  background-color: $col-secondary-orange;
+  &:hover:not(.--state-disabled):not(.--style-ghost) {
+    background-color: lighten($col-secondary-orange, 8%);
+  }
+}
+
+.--style-tertiary {
+  @include on-dark;
+  &:not(.--style-outline) {
+    font-weight: $font-weight-bold;
+  }
+  background-color: $col-tertiary-darkgray;
+  &:hover:not(.--state-disabled) {
+    background-color: darken($col-tertiary-darkgray, 5%);
+  }
+}
+
+@mixin outlineStyle($curCol, $outlineCol, $textCol) {
+  border-color: $outlineCol;
+  transition: border-color $txn-swift;
+  @include theme-any {
+    &,
+    &:visited {
+      color: $textCol;
+    }
+    &:hover {
+      &,
+      &:visited {
+        border-color: $curCol;
+        color: lighten($textCol, 15%);
+        background-color: transparentize($curCol, 0.95);
+      }
+    }
+    &:active {
+      &,
+      &:visited {
+        color: transparentize($textCol, 0.2);
+        background-color: transparentize($curCol, 0.2);
+      }
+    }
+  }
+}
+
+.--style-ghost {
+  &.--style-primary {
+    background-color: transparent;
+    border: 1px solid transparent;
+    @include outlineStyle($col-primary-blue, transparent, $col-link);
+  }
+}
+
+.--style-outline {
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+
+  line-height: #{$h-m - (1px * 2) - 2px};
+
+  &.--size-small {
+    line-height: #{$h-s - (1px * 2) - 2px};
+  }
+
+  &.--size-x-small {
+    line-height: #{$h-xs - (1px * 2) - 2px};
+  }
+
+  &.--size-large {
+    line-height: #{$h-l - (1px * 2) - 2px};
+  }
+  &.--style-primary {
+    &:not(.--style-ghost) {
+      @include outlineStyle(
+        $col-primary-blue,
+        $col-primary-blue,
+        darken($col-primary-blue, 0%)
+      );
+    }
+  }
+  &.--style-secondary {
+    @include outlineStyle(
+      $col-secondary-orange,
+      $col-secondary-orange,
+      $col-secondary-orange
+    );
+  }
+  &.--style-tertiary {
+    @include outlineStyle(
+      transparentize($col-tertiary-darkgray-dk1, 0.4),
+      transparentize($col-tertiary-darkgray-dk1, 0.4),
+      transparentize($col-tertiary-darkgray-dk1, 0.45)
+    );
+  }
+  &.--state-disabled {
+    background-color: transparent;
+    border-color: $col-gray-50-a40;
+    color: $col-gray-50-a40;
+  }
+}
+
+.--state-disabled {
+  background-color: mix($col-gray-50, $col-light, 25%);
+  color: $col-light;
+  border-color: transparent;
+  cursor: default;
+  &:active {
+    opacity: 1;
+  }
+}
+
+.buttonContent {
+  &.--loading {
+    visibility: hidden;
+  }
+}
+
+.loading-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+}

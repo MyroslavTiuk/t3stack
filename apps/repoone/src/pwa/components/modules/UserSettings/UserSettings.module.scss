@@ -1,0 +1,90 @@
+﻿@import '../../../theme/variables';
+@import '../../../theme/common';
+
+.container {
+  min-height: 27rem;
+  @include mobile-only {
+    flex-direction: column;
+  }
+  > ._tabs {
+    @include mobile-only {
+      display: flex;
+    }
+    @include tablet-plus {
+      border-right: 1px solid $col-panel-contrast-a50;
+      padding-right: $pad-2;
+      min-width: 13rem;
+    }
+
+    > ._options {
+      @include clickable;
+      margin-bottom: $pad-1-3;
+      @include mobile-only {
+        margin-right: $pad-1-2;
+      }
+
+      > ._optionText {
+        display: inline-block;
+        padding: $pad-1-3;
+        border-bottom: 2px solid;
+        &:not(.--active) {
+          border-bottom-color: transparent;
+        }
+        &.--active {
+          border-bottom-color: $col-secondary-orange;
+        }
+      }
+    }
+  }
+
+  > ._tabsCtnr {
+    flex: 1 0 0;
+    position: relative;
+    @include tablet-plus {
+      padding-left: $pad-2;
+    }
+  }
+}
+
+.settingsContentContainer {
+  width: 100%;
+  > ._secondarySettings {
+    margin: 30px 0;
+    > ._secondarySettingsLabel {
+      color: rgba(49, 64, 80, 0.76);
+      font-weight: 800;
+    }
+
+    ._checkbox {
+      margin-right: 10px;
+    }
+  }
+  > ._inputWithDropdownContainer {
+    @include marginVertical($pad-2);
+  }
+  .inputContainer {
+    width: 200px;
+  }
+  .labelContainer {
+    width: 200px;
+  }
+}
+
+.rowField {
+  overflow-x: visible;
+  @include marginVertical($pad);
+
+  > :global(._inner) {
+    align-items: center;
+  }
+}
+
+.textErrors {
+  color: $col-error;
+  margin-bottom: 20px;
+}
+
+.successMessage {
+  color: $col-success;
+  margin-bottom: 20px;
+}

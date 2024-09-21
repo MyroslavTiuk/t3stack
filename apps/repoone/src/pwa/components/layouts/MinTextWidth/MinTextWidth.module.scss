@@ -1,0 +1,17 @@
+@import '../../../theme/functions';
+
+.main {
+  position: relative;
+  display: inline-block;
+
+  > ._ele {
+    &.--show {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    &.--hide {
+      visibility: hidden;
+    }
+  }
+}

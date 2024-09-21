@@ -1,0 +1,14 @@
+.main {
+  position: relative;
+  display: inline-block;
+}
+
+.main>._ele.--show {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.main>._ele.--hide {
+  visibility: hidden;
+}

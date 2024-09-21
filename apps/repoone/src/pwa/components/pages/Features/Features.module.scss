@@ -1,0 +1,26 @@
+@import '../../../theme/common';
+@import '../../pages/Contact/Contact.module';
+
+.featureTile {
+  background-color: $col-panel;
+  padding: $pad;
+  margin-bottom: $pad-2;
+  > ._title {
+    font-size: toRem(20px);
+    font-weight: $font-weight-medium;
+    text-align: center;
+  }
+}
+
+.newTag {
+  font-size: toRem(17px);
+  font-weight: $font-weight-semibold;
+  display: inline-block;
+  padding: 0 0.3em 0.15em;
+  background-color: $col-secondary-orange-dk1;
+  color: $col-light;
+}
+
+.inputField {
+  max-width: 12em;
+}

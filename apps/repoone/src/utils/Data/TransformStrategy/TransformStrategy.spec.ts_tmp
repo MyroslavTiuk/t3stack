@@ -1,0 +1,206 @@
+import { Strategy, StrategyPartial } from '../../../types/Strategy';
+import { CurrentCalculationState } from '../../../types/store/CurrentCalculationState';
+import { StratMenu } from '../../../types/StratMenu';
+import { Strategies } from '../../../types/Strategies';
+import DataTransform from './DataTransform';
+
+const spreadDef: StrategyPartial = {
+  title: 'Spread',
+  stratKey: 'spread',
+  settings: {
+    category: { complexity: 'spreads' },
+    access: 'guest',
+    inputOptions: ['initial'],
+  },
+  underlyingElement: 'underlying',
+  legsById:{
+    underlying: {
+      settings: {
+        allowPurchase: false,
+        changeAct: false,
+      },
+      defaults: {
+        name: 'Underlying stock symbol',
+      },
+      type: 'stock',
+    },
+    long: {
+      type: 'option',
+      settings: {
+        suggestedNum: 1,
+        suggestedNumEle: 'short',
+      },
+      defaults: {
+        underlying: 'underlying',
+        name: 'Long Option',
+        num: 1,
+        act: 'buy',
+      },
+    },
+    short: {
+      type: 'option',
+      settings: {
+        suggestedNum: 1,
+        suggestedNumEle: 'long',
+      },
+      defaults: {
+        underlying: 'underlying',
+        name: 'Short Option',
+        num: 1,
+        act: 'sell',
+      },
+    },
+    //  "spread":{
+    //     "type":"spread",
+    //     "options":[
+    //        "long",
+    //        "short"
+    //     ],
+    //     "defaults":{
+    //        "name":"Spread"
+    //     }
+    //  }
+  },
+};
+
+const fullSpread: Strategy = {
+  title: 'Spread',
+  stratKey: 'spread',
+  settings: {
+    category: { complexity: 'spreads' },
+    inputOptions: ['initial'],
+    access: 'guest',
+  },
+  underlyingElement: 'underlying',
+  legsById:{
+    underlying: {
+      type: 'stock',
+      name: 'Underlying stock symbol',
+      num: 100,
+      act: 'buy',
+      settings: {
+        changeAct: false,
+        allowPurchase: false,
+      },
+      defaults: {
+        name: 'Underlying stock symbol',
+        num: 100,
+        act: 'buy',
+      },
+    },
+    long: {
+      type: 'option',
+      underlying: 'underlying',
+      name: 'Long Option',
+      num: 1,
+      act: 'buy',
+      opType: null,
+      expiry: null,
+      iv: null,
+      settings: {
+        renamable: true,
+        changeAct: true,
+        changeOpType: false,
+        showUnderlying: false,
+        suggestedNumEle: 'short',
+        suggestedNum: 1,
+        suggestedStrikeEle: undefined,
+      },
+      defaults: {
+        underlying: 'underlying',
+        name: 'Long Option',
+        num: 1,
+        act: 'buy',
+        opType: null,
+        expiry: null,
+        iv: null,
+      },
+    },
+    short: {
+      type: 'option',
+      underlying: 'underlying',
+      name: 'Short Option',
+      num: 1,
+      act: 'sell',
+      opType: null,
+      expiry: null,
+      iv: null,
+      settings: {
+        renamable: true,
+        changeAct: true,
+        changeOpType: false,
+        showUnderlying: false,
+        suggestedNumEle: 'long',
+        suggestedNum: 1,
+        suggestedStrikeEle: undefined,
+      },
+      defaults: {
+        underlying: 'underlying',
+        name: 'Short Option',
+        num: 1,
+        act: 'sell',
+        opType: null,
+        expiry: null,
+        iv: null,
+      },
+    },
+    //  spread: { changeOpType: null, act: null, type: 'spread' } } }
+  },
+};
+
+describe('fillStrat', () => {
+  it('fills a partial strat', () => {
+    expect(DataTransform.fillStrat(spreadDef)).toEqual(fullSpread);
+  });
+});
+
+describe('stratToInitialState', () => {
+  it('converts a spread def object to state object', () => {
+    const expected: CurrentCalculationState = {
+      strategy: 'spread',
+      legs: [
+        'underlying',
+        'long',
+        'short',
+        //  'spread',
+      ],
+      legsById: fullSpread.legs,
+      displayOptions: {
+        displayValues: 'roi-max-risk',
+        maxStrike: 1.1,
+        minStrike: 0.9,
+        outputType: 'table',
+        timeScale: 30,
+      },
+    };
+
+    const actual = DataTransform.stratToInitialState(spreadDef);
+
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('stratsToStratMenu', () => {
+  it('works', () => {
+    // Ignoring because this doesn't contain all category records
+    // @ts-ignore
+    const expected: StratMenu = {
+      spreads: [
+        {
+          title: 'Spread',
+          category: 'spreads',
+          access: 'guest',
+          stratKey: 'spread',
+        },
+      ],
+    };
+
+    // Similar, only defining one
+    // @ts-ignore
+    const strats: Strategies = {
+      'call-spread': spreadDef,
+    };
+
+    expect(DataTransform.stratsToStratMenu(strats)).toEqual(expected);
+  });
+});

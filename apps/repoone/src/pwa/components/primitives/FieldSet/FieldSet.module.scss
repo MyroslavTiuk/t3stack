@@ -1,0 +1,22 @@
+@import '../../../theme/functions';
+
+.container {
+  &:not(.--basic) {
+    @include theme-light {
+      border: 1px solid $col-panel-contrast-a35;
+      &.--padded {
+        @include paddingHorizontal($fieldset-padding);
+        padding-bottom: $fieldset-padding;
+      }
+    }
+  }
+  &.--basic {
+    > ._title {
+    }
+  }
+
+  > ._title > ._helpIcon {
+    margin-left: $pad-1-4;
+    text-transform: none;
+  }
+}

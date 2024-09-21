@@ -1,0 +1,20 @@
+﻿@import '../../../theme/common';
+
+.acceptTermsAndConditionsContainer {
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.checkbox {
+  margin-right: 10px;
+}
+
+.text {
+  display: block;
+}
+
+.popupCtnr {
+  @include mobile-only {
+    min-height: 80vh;
+  }
+}

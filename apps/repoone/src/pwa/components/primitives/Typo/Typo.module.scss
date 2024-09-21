@@ -1,0 +1,619 @@
+@import '../../../theme/common';
+
+@mixin clickable-text--subtle {
+  &:hover {
+    color: $col-link;
+    &:not(.--is-hinted) {
+      text-decoration: underline;
+    }
+  }
+}
+@mixin clickable-text--hinted {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+@mixin clickable-text {
+  @include clickable-text--subtle;
+  @include theme-light {
+    color: $col-link;
+  }
+  @include theme-dark {
+    color: $col-link;
+  }
+}
+
+@mixin optionally-clickable-text {
+  &.--is-clickable {
+    @include clickable;
+    &:not(.--subtle):not(.--is-anemic) {
+      @include clickable-text;
+    }
+    &.--is-hinted {
+      @include clickable-text--hinted;
+    }
+    @include clickable-text--subtle;
+  }
+}
+
+@mixin formattable-content {
+  &:not(.--no-margin) {
+    :global(.formatted-content) > &,
+    :global(.formatted-content--all) & {
+      @content;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@mixin content--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-bottom: 1em;
+  }
+  @if ($isImportant) {
+    font-size: toRem($font-size-content) !important;
+    line-height: 167% !important;
+    font-family: $font-content !important;
+  } @else {
+    font-size: toRem($font-size-content);
+    line-height: 167%;
+    font-family: $font-content;
+  }
+}
+.content--anemic {
+  @include content--anemic();
+}
+@mixin content($isImportant: false) {
+  @include optionally-clickable-text;
+  @include content--anemic($isImportant);
+  &:not(.--is-anemic) {
+    @if ($isImportant) {
+      @include theme-light {
+        color: $col-content !important;
+      }
+      @include theme-dark {
+        color: $col-content-on-dark !important;
+      }
+    } @else {
+      @include theme-light {
+        color: $col-content;
+      }
+      @include theme-dark {
+        color: $col-content-on-dark;
+      }
+    }
+  }
+}
+.content {
+  @include content();
+}
+
+.content-feature--anemic {
+  font-size: toRem($font-size-content-feature);
+  line-height: 157%;
+  font-family: $font-content;
+  @include formattable-content {
+    @include marginVertical(1em);
+  }
+}
+.content-feature {
+  @extend .content-feature--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+}
+
+.content-caption--anemic {
+  @include formattable-content {
+    @include marginVertical(1em);
+  }
+  font-size: toRem($font-size-content-detail);
+  font-family: $font-content;
+  font-weight: $font-weight-light;
+}
+.content-caption {
+  @extend .content-caption--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content-caption;
+    }
+    @include theme-dark {
+      color: $col-content-caption-on-dark;
+    }
+  }
+}
+
+.content-detail--anemic {
+  font-size: toRem($font-size-content-detail);
+  font-family: $font-content;
+  font-weight: $font-weight-regular;
+}
+.content-detail {
+  @include optionally-clickable-text;
+  @extend .content-detail--anemic;
+  &:not(.--is-anemic):not(.--hint) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+  &.--hint {
+    @include theme-light {
+      color: $col-content-caption;
+    }
+    @include theme-dark {
+      color: $col-content-caption-on-dark;
+    }
+  }
+}
+
+.content-detail-minor--anemic {
+  @include formattable-content {
+    @include marginVertical(1em);
+  }
+  font-size: toRem($font-size-content-minor);
+  font-family: $font-content;
+}
+.content-detail-minor {
+  @include optionally-clickable-text;
+  @extend .content-detail-minor--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content-caption;
+    }
+    @include theme-dark {
+      color: $col-content-caption-on-dark;
+    }
+  }
+}
+
+.content-hint--anemic {
+  font-size: toRem($font-size-content-detail);
+  font-family: $font-content;
+  font-style: italic;
+}
+.content-hint {
+  @extend .content-hint--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content-hint;
+    }
+    @include theme-dark {
+      color: $col-content-hint-on-dark;
+    }
+  }
+}
+
+.content-pragmatic--anemic {
+  @include formattable-content {
+    @include marginVertical(1em);
+  }
+  font-size: toRem($font-size-content-pragmatic);
+  font-family: $font-content;
+}
+.content-pragmatic {
+  @include optionally-clickable-text;
+  @extend .content-pragmatic--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+}
+
+.content-field-label-inline--anemic {
+  font-size: toRem($font-size-content-detail);
+  text-transform: uppercase;
+  font-family: $font-content;
+}
+.content-field-label-inline {
+  @extend .content-field-label-inline--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+  &:not(.--no-weight) {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.content-field-label--anemic {
+  font-size: toRem($font-size-content-detail);
+  font-family: $font-content;
+}
+.content-field-label {
+  @extend .content-field-label--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+  &:not(.--no-weight) {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.content-fields-set-label--anemic {
+  font-size: toRem($font-size-content-pragmatic);
+  text-transform: uppercase;
+  font-weight: $font-weight-extrabold;
+  font-family: $font-content;
+  letter-spacing: toRem(0.5px);
+}
+.content-fields-set-label {
+  @extend .content-fields-set-label--anemic;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: transparentize($col-headings-2, 0.12);
+    }
+    @include theme-dark {
+      color: transparentize($col-headings-2-on-dark, 0.12);
+    }
+  }
+}
+
+.content-tag--anemic {
+  font-size: toRem($font-size-content-minor);
+  font-family: $font-content;
+  text-transform: uppercase;
+}
+.content-tag {
+  @extend .content-tag--anemic;
+  @include optionally-clickable-text;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-content;
+    }
+    @include theme-dark {
+      color: $col-content-on-dark;
+    }
+  }
+  &:not(.--no-weight) {
+    font-weight: $font-weight-black;
+  }
+}
+
+.content-tag-clickable {
+  font-size: toRem($font-size-content-minor);
+  font-family: $font-content;
+  text-transform: uppercase;
+  @include optionally-clickable-text;
+  &:not(.--is-anemic) {
+    @include theme-light {
+      color: $col-link;
+    }
+    @include theme-dark {
+      color: $col-link;
+    }
+  }
+  &:not(.--no-weight) {
+    font-weight: $font-weight-bold;
+  }
+}
+
+@mixin h1--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1em;
+    margin-bottom: 0.33em;
+  }
+  @if ($isImportant) {
+    font-size: toRem(64px) !important;
+    @include mobile-only {
+      font-size: toRem(40px) !important;
+    }
+    line-height: 117% !important;
+    font-weight: $font-weight-semibold !important;
+    font-family: $font-headings !important;
+  } @else {
+    font-size: toRem(64px);
+    @include mobile-only {
+      font-size: toRem(40px);
+    }
+    line-height: 117%;
+    font-weight: $font-weight-semibold;
+    font-family: $font-headings;
+  }
+}
+.h1--anemic {
+  @include h1--anemic();
+}
+@mixin h1($isImportant: false) {
+  @if ($isImportant) {
+    @include h1--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  } @else {
+    @include h1--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h1 {
+  @include h1();
+}
+
+@mixin h2--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1em;
+    margin-bottom: 0.33em;
+  }
+  @if ($isImportant) {
+    font-size: toRem(39px) !important;
+    @include mobile-only {
+      font-size: toRem(30px) !important;
+    }
+    line-height: 137% !important;
+    font-weight: $font-weight-semibold !important;
+    font-family: $font-headings !important;
+  } @else {
+    font-size: toRem(39px);
+    @include mobile-only {
+      font-size: toRem(30px);
+    }
+    line-height: 137%;
+    font-weight: $font-weight-semibold;
+    font-family: $font-headings;
+  }
+}
+.h2--anemic {
+  @include h2--anemic();
+}
+@mixin h2($isImportant: false) {
+  @if ($isImportant) {
+    @include h2--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  } @else {
+    @include h2--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h2 {
+  @include h2();
+}
+
+@mixin h3--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1.3em;
+    margin-bottom: 0.4em;
+  }
+  @if ($isImportant) {
+    font-size: toRem($font-size-h3) !important;
+    @include mobile-only {
+      font-size: toRem($font-size-h3-mob) !important;
+    }
+    line-height: 130% !important;
+    font-weight: $font-weight-semibold !important;
+    font-family: $font-headings !important;
+  } @else {
+    font-size: toRem($font-size-h3);
+    @include mobile-only {
+      font-size: toRem($font-size-h3-mob);
+    }
+    line-height: 130%;
+    font-weight: $font-weight-semibold;
+    font-family: $font-headings;
+  }
+}
+.h3--anemic {
+  @include h3--anemic();
+}
+@mixin h3($isImportant: false) {
+  @if ($isImportant) {
+    @include h3--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l1;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  } @else {
+    @include h3--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l1;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h3 {
+  @include h3();
+}
+
+@mixin h4--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1.3em;
+    margin-bottom: 0.4em;
+  }
+  @if ($isImportant) {
+    font-size: toRem($font-size-h4) !important;
+    line-height: 117% !important;
+    font-weight: $font-weight-bold !important;
+    font-family: $font-headings !important;
+  } @else {
+    font-size: toRem($font-size-h4);
+    line-height: 117%;
+    font-weight: $font-weight-bold;
+    font-family: $font-headings;
+  }
+}
+.h4--anemic {
+  @include h4--anemic();
+}
+@mixin h4($isImportant: false) {
+  @if ($isImportant) {
+    @include h4--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings !important;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark !important;
+      }
+    }
+  } @else {
+    @include h4--anemic($isImportant);
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h4 {
+  @include h4();
+}
+
+@mixin h5--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  @if ($isImportant) {
+    font-size: toRem($font-size-h5) !important ;
+    line-height: 117% !important ;
+    font-family: $font-headings !important ;
+    &:not(.--no-weight) {
+      font-weight: $font-weight-bold !important ;
+    }
+  } @else {
+    font-size: toRem($font-size-h5);
+    line-height: 117%;
+    font-family: $font-headings;
+    &:not(.--no-weight) {
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+.h5--anemic {
+  @include h5--anemic();
+}
+@mixin h5($isImportant: false) {
+  @include h5--anemic($isImportant);
+  @if ($isImportant) {
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l2 !important;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark !important;
+      }
+    }
+  } @else {
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l2;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h5 {
+  @include h5();
+}
+
+@mixin h6--anemic($isImportant: false) {
+  @include formattable-content {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  @if ($isImportant) {
+    font-size: toRem($font-size-h6) !important ;
+    line-height: 117% !important ;
+    font-family: $font-headings !important ;
+    &:not(.--no-weight) {
+      font-weight: $font-weight-semibold !important ;
+    }
+  } @else {
+    font-size: toRem($font-size-h6);
+    line-height: 117%;
+    font-family: $font-headings;
+    &:not(.--no-weight) {
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+.h6--anemic {
+  @include h6--anemic();
+}
+@mixin h6($isImportant: false) {
+  @include h6--anemic($isImportant);
+  @if ($isImportant) {
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l3 !important;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark !important;
+      }
+    }
+  } @else {
+    &:not(.--is-anemic) {
+      @include theme-light {
+        color: $col-headings-l3;
+      }
+      @include theme-dark {
+        color: $col-headings-on-dark;
+      }
+    }
+  }
+}
+.h6 {
+  @include h6();
+}

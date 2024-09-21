@@ -1,0 +1,30 @@
+@import '../../../../../theme/functions';
+@import '../../../../primitives/Input/Input-style.module';
+
+.container {
+  margin-left: -$pad-1-3;
+  > ._holder {
+    position: relative;
+    line-height: 28px;
+    color: $col-link;
+    background-color: transparent;
+    @include paddingHorizontal($pad-1-3);
+
+    ._toggle {
+      margin-right: 2px;
+    }
+    ._icon {
+      color: $col-clickable-icon-subtle;
+    }
+    &:hover {
+      border: 1px solid $col-primary-blue;
+      ._icon {
+        color: $col-primary-blue;
+      }
+    }
+  }
+  .toggleCenter{
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,0 +1,33 @@
+@import '../../../../theme/variables';
+
+.iconSwitcher {
+  cursor: pointer;
+  &.--is-linked,
+  &:not(.--is-linked):hover {
+    > ._iconCtnr.--icon-linked {
+      display: block;
+    }
+    > ._iconCtnr.--icon-unlinked {
+      display: none;
+    }
+  }
+  &.--is-linked:hover,
+  &:not(--is-linked) {
+    > ._iconCtnr.--icon-linked {
+      display: none;
+    }
+    > ._iconCtnr.--icon-unlinked {
+      display: block;
+    }
+  }
+  &.--is-linked {
+    color: $col-linked-field;
+  }
+  &:not(.--is-linked) {
+    color: $col-content-disabled;
+  }
+}
+
+.tooltip {
+  display: block;
+}

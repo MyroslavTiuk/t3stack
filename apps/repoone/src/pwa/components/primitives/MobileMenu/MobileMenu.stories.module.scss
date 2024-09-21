@@ -1,0 +1,14 @@
+@import '../../../theme/functions';
+
+.navMenu {
+  @include tablet-plus {
+    li {
+      display: inline-block;
+    }
+  }
+}
+.closeBtn {
+  @include tablet-plus {
+    display: none;
+  }
+}

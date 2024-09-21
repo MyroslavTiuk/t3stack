@@ -1,0 +1,228 @@
+@import './variables';
+
+@function toRem($inPx) {
+  @return $inPx / $base-font-size * 1rem;
+}
+
+@mixin paddingHorizontal($amount) {
+  padding-left: $amount;
+  padding-right: $amount;
+}
+
+@mixin paddingVertical($amount) {
+  padding-top: $amount;
+  padding-bottom: $amount;
+}
+
+@mixin marginHorizontal($amount) {
+  margin-left: $amount;
+  margin-right: $amount;
+}
+
+@mixin marginVertical($amount) {
+  margin-top: $amount;
+  margin-bottom: $amount;
+}
+
+@mixin marginVertical($amount) {
+  margin-top: $amount;
+  margin-bottom: $amount;
+}
+
+@mixin resetIconTransformation {
+  transform: scaleX(-1) rotate(90deg) translateY(-0.33em);
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$bkpt-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-small {
+  @media (max-width: #{$bkpt-mobile-medium - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-medium {
+  @media (min-width: #{$bkpt-mobile-medium}) and (max-width: #{$bkpt-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-medium-plus {
+  @media (min-width: #{$bkpt-mobile-medium}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: #{$bkpt-tablet}) and (max-width: #{$bkpt-tablet-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$bkpt-tablet-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-plus {
+  @media (min-width: #{$bkpt-tablet}) {
+    @content;
+  }
+}
+
+@mixin tablet-large-only {
+  @media (min-width: #{$bkpt-tablet-large}) and (max-width: #{$bkpt-desktop-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-large-down {
+  @media (max-width: #{$bkpt-desktop-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-large-plus {
+  @media (min-width: #{$bkpt-tablet-large}) {
+    @content;
+  }
+}
+
+@mixin tablet-to-tablet-large {
+  @media (min-width: #{$bkpt-tablet}) and (max-width: #{$bkpt-desktop-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-small-only {
+  @media (min-width: #{$bkpt-desktop-small}) and (max-width: #{$bkpt-desktop-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-small-down {
+  @media (max-width: #{$bkpt-desktop-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-small-plus {
+  @media (min-width: #{$bkpt-desktop-small}) {
+    @content;
+  }
+}
+
+@mixin desktop-large-plus {
+  @media (min-width: #{$bkpt-desktop-large}) {
+    @content;
+  }
+}
+
+@mixin mobile-menu-size {
+  @include tablet-down {
+    @content;
+  }
+}
+
+@mixin desktop-menu-size {
+  @include tablet-large-plus {
+    @content;
+  }
+}
+
+// For StrategyCalculator
+@mixin size-side-by-side {
+  @include desktop-small-plus {
+    @content;
+  }
+}
+@mixin size-stacked {
+  @include tablet-large-down {
+    @content;
+  }
+}
+
+@mixin non-touch-screen {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin touch-screen {
+  @media (hover: none) {
+    @content;
+  }
+  :global(.device--touch) {
+    @content;
+  }
+}
+
+@mixin theme-light {
+  :global(.theme--light) &,
+  :global(.theme--dark) :global(.theme-override--light) &,
+  :global(.theme--dark) :global(.theme--inverted) & {
+    @content;
+  }
+}
+@mixin theme-light--global {
+  .theme--light &,
+  .theme--dark .theme-override--light &,
+  .theme--dark .theme--inverted & {
+    @content;
+  }
+}
+
+@mixin theme-dark {
+  :global(.theme--dark) &,
+  :global(.theme--light) :global(.theme-override--dark) &,
+  :global(.theme--light) :global(.theme--inverted) & {
+    @content;
+  }
+}
+@mixin theme-dark--global {
+  .theme--dark &,
+  .theme--light .theme-override--dark &,
+  .theme--light .theme--inverted & {
+    @content;
+  }
+}
+
+@mixin theme-any {
+  :global(.theme--light) &,
+  :global(.theme--dark) & {
+    @content;
+  }
+}
+
+@function opposite-direction($directions) {
+  $opposite-directions: ();
+  $direction-map: (
+    'top': 'bottom',
+    'right': 'left',
+    'bottom': 'top',
+    'left': 'right',
+    'center': 'center',
+    'ltr': 'rtl',
+    'rtl': 'ltr',
+  );
+
+  @each $direction in $directions {
+    $direction: to-lower-case($direction);
+
+    @if map-has-key($direction-map, $direction) {
+      $opposite-directions: append(
+        $opposite-directions,
+        unquote(map-get($direction-map, $direction))
+      );
+    } @else {
+      @warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+    }
+  }
+
+  @return $opposite-directions;
+}

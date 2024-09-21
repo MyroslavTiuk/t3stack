@@ -1,0 +1,49 @@
+﻿@import '../../../theme/variables';
+@import '../../../theme/common';
+
+.headerContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+.headerTab {
+  display: flex;
+  margin-right: 20px;
+  padding: $pad-1-3;
+  @include clickable;
+}
+
+.activeTab {
+  border-bottom: 2px solid $col-secondary-orange;
+}
+
+.contentContainer {
+  margin-top: 20px;
+}
+
+.inputsContainer {
+  max-width: 24em;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.container {
+}
+
+.tnc {
+  font-size: 13px;
+  > a {
+    color: blue;
+  }
+}
+
+.textErrors {
+  color: $col-error;
+  margin-bottom: 20px;
+}
+
+.cancel {
+  margin-left: 10px;
+}

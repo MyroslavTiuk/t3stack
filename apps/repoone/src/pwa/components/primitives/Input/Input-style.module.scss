@@ -1,0 +1,89 @@
+@import '../../../theme/functions';
+@import '../Typo/Typo.module';
+
+@mixin input-style {
+  @include paddingVertical(0.25em);
+  padding-right: 0.1em;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+
+  @include theme-light {
+    color: $col-content;
+    &::placeholder {
+      color: $col-gray-72;
+    }
+  }
+  @include theme-dark {
+    color: $col-content-on-dark;
+    &::placeholder {
+      color: $col-gray-50;
+    }
+  }
+}
+@mixin input-style-typo {
+  @extend .content-pragmatic;
+}
+
+@mixin input-style-filled {
+  &:focus {
+    outline: none;
+    @include theme-light {
+      box-shadow: 0 0 0 1px $col-bg-dark-lt2-a50;
+    }
+    @include theme-dark {
+      box-shadow: 0 0 0 1px $col-bg-dark-lt2-a50;
+    }
+  }
+}
+@mixin inputPrefix {
+  position: absolute;
+  left: 1px;
+  color: $col-gray-50;
+  transition: color 100ms;
+  padding-left: 0.1em;
+
+  .input-ctnr:focus-within & {
+    color: $col-gray-72;
+  }
+}
+
+@mixin input-style-underlined--focus($col: $col-panel-contrast) {
+  outline: none;
+
+  @include theme-light {
+    box-shadow: 0 1px 0 0 $col;
+    border-bottom: 1px solid $col;
+  }
+  @include theme-dark {
+    box-shadow: 0 1px 0 0 $col;
+    border-bottom: 1px solid $col;
+  }
+}
+
+@mixin input-style-underlined($col: $col-panel-contrast-a70) {
+  border-bottom: 1px solid $col;
+  &:hover {
+    box-shadow: 0 1px 0 0 $col;
+  }
+  &:focus {
+    @include input-style-underlined--focus($col);
+  }
+}
+@mixin input-style-underlined--disabled {
+  color: $col-content-dimmed;
+  border-bottom: 1px dashed rgba($col-panel-contrast-a50, 0.2);
+}
+
+@mixin input-style-outlined {
+  border: 1px solid $col-guide-subtle;
+  border-radius: 2.5px;
+  &:hover,
+  &:focus {
+    border-color: $col-guide;
+  }
+}
+@mixin input-style-outlined--disabled {
+  border: 1px solid $col-guide-subtle;
+  background-color: mix($col-light, $col-guide-subtle, 50%);
+}

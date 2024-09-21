@@ -1,0 +1,4 @@
+export enum FTUX_STAGES {
+  SEEN_SYMBOL_INPUT = 1,
+  SEEN_LAYOUT_SWITCH = 2,
+}

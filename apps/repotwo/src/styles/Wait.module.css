@@ -1,0 +1,75 @@
+.container {
+  background-color: #1d1d2a; /* background color */
+  min-height: 100vh; /* cover at least the whole screen */
+  height: 100%;
+  display: flex; /* our flex layout */
+  flex-wrap: wrap;
+}
+.column {
+  flex: 50%; /* each column takes up half the screen */
+  margin: auto; /* vertically align each column */
+  padding: 2rem;
+}
+/* On small screens, we no longer want to have two columns since they
+ * would be too small. Increasing it to 100% will make the two columns
+ * stack on top of each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+  }
+  .title {
+    font-size: 2rem;
+    text-align: center;
+    color: white;
+    line-height: normal;
+  }
+  .titleKeyword {
+    color: #909aeb;
+  }
+  .subtitle {
+    font-size: 1rem;
+    font-weight: 250;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+  }
+}
+.title {
+  font-size: 4rem;
+  color: white;
+}
+.titleKeyword {
+  color: #909aeb;
+}
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 250;
+  color: white;
+}
+
+.formWrapper {
+  padding-top: 3rem;
+  display: flex; /* two column display for input + button */
+  flex-wrap: wrap;
+}
+/* Shared by the input and button so they are the same size and style */
+.formInput {
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+.formTextInput {
+  flex: 70%; /* take up most of the available space */
+  background-color: #232323;
+  color: white;
+}
+.formSubmitButton {
+  flex: 30%; /* take up the rest of the space */
+  background-color: #7476ed;
+  color: white;
+}
+.error {
+  color: red;
+}

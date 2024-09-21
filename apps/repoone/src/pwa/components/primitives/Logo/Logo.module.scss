@@ -1,0 +1,32 @@
+@import '../../../theme/common';
+
+.text {
+  @include mobile-only {
+    &:not(.--show-logo-title) {
+      display: none;
+    }
+  }
+  color: $col-headings-on-dark;
+  font-family: $font-headings;
+  letter-spacing: -0.025em;
+  font-weight: 300;
+  font-size: toRem(22px);
+  @include desktop-small-plus {
+    font-size: toRem(26px);
+  }
+}
+
+.logo-ctnr {
+  @include clickable;
+}
+
+.text-space {
+  letter-spacing: -0.1em;
+}
+
+.img {
+  height: 28px;
+  @include tablet-plus {
+    height: 32px;
+  }
+}

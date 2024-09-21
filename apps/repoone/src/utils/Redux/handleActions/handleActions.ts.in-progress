@@ -1,0 +1,18 @@
+// import { handleActions as raHandleActions } from 'redux-actions';
+//
+// type Handler<S, P extends {} = {}> = [(...args: any[]) => P, (state: S, payload: P) => S]
+//
+// type HandlerMap<S, A, B, C, D, E, F> =
+//
+//   Handler<S>[];
+//
+// const handleActions = <S>(defaultState: S) => <A, B, C, D, E, F>(handlerMap: HandlerMap<S, A, B, C, D, E, F>, defaultState: S) => {
+//   raHandleActions(
+//     Object.fromEntries(
+//       handlerMap.map(<P>(h: Handler<S, P>) => [String(h[0]), h[1]]),
+//     ),
+//     ,
+//   )
+// };
+//
+// export default handleActions;

@@ -1,0 +1,231 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount", "views"]
+  binaryTargets   = ["native", "rhel-openssl-1.0.x", "debian-openssl-1.1.x"]
+  output          = "../client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("OPTIONSCOUT_DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id               String        @id @default(cuid())
+  name             String?
+  email            String?       @unique
+  emailVerified    DateTime?
+  image            String?
+  stripeCustomerId String?
+  isActive         Boolean       @default(false)
+  accounts         Account[]
+  sessions         Session[]
+  SavedOption      SavedOption[]
+  SavedEquity      SavedEquity[]
+  SavedTrade       SavedTrade[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Stock {
+  symbol           String       @id
+  name             String
+  timestamp        DateTime     @db.Timestamptz(6)
+  open             Float
+  high             Float
+  low              Float
+  close            Float
+  lastTrade        Float
+  volume           BigInt
+  lastSale         Float
+  previousClose    Float
+  dollarVolume     Float
+  netChange        Float
+  percentChange    Float
+  retrievedAt      DateTime     @db.Timestamptz(6)
+  price            Float
+  priceSource      String
+  numOptions       Int
+  peRatio          Float?
+  marketCap        Float?
+  dividendAmount   Float?
+  dividendYield    Float?
+  beta             Float?
+  nextEarningsDate DateTime?
+  options          Option[]
+  TradeSetup       TradeSetup[]
+}
+
+model Option {
+  id               String     @id
+  symbol           String
+  expiration       DateTime   @db.Timestamptz(6)
+  strikePrice      Float
+  optionType       OptionType
+  lastPrice        Float
+  volume           BigInt
+  askPrice         Float
+  askSize          BigInt
+  bidPrice         Float
+  bidSize          BigInt
+  openInterest     BigInt
+  retrievedAt      DateTime   @db.Timestamptz(6)
+  price            Float
+  priceSource      String
+  daysToExpiration Float
+  iv               Float
+  ivMeta           Json?
+  d1               Float
+  d2               Float
+  delta            Float
+  gamma            Float
+  theta            Float
+  vega             Float
+  stock            Stock      @relation(fields: [symbol], references: [symbol])
+}
+
+model TradeSetup {
+  strategy         String
+  name             String
+  optionIds        String[]
+  iv               Float?
+  otmPercent       Float?
+  pop              Float?
+  bidAskSpread     Float?
+  netCredit        Float?
+  daysToExpiration Float?
+  volume           BigInt?
+  roi              Float?
+  retrievedAt      DateTime @db.Timestamptz(6)
+  symbol           String
+  id               String   @id @default(cuid())
+  stock            Stock    @relation(fields: [symbol], references: [symbol])
+}
+
+model OptionHistory {
+  id           String
+  symbol       String
+  expiration   DateTime   @db.Timestamptz(6)
+  date         DateTime   @db.Timestamptz(6)
+  stockPrice   Float
+  optionType   OptionType
+  lastPrice    Float
+  strikePrice  Float
+  bidPrice     Float
+  askPrice     Float
+  volume       BigInt
+  openInterest BigInt
+  price        Float
+  priceSource  String
+  iv           Float
+  ivMeta       Json?
+  delta        Float
+  gamma        Float
+  theta        Float
+  vega         Float
+
+  @@id([symbol, date])
+  @@index([strikePrice, expiration])
+}
+
+view PriceHistory {
+  expiration  DateTime
+  strikePrice Float
+  history     Json
+
+  @@id([strikePrice, expiration])
+}
+
+model StockHistory {
+  symbol String
+  date   DateTime @db.Timestamptz(6)
+  open   Float
+  high   Float
+  low    Float
+  close  Float
+  volume BigInt
+
+  @@id([symbol, date])
+}
+
+enum OptionType {
+  Call
+  Put
+}
+
+enum Position {
+  Short
+  Long
+}
+
+model SavedOption {
+  id             String      @id @default(cuid())
+  optionType     OptionType
+  position       Position
+  contractsCount Int
+  strikePrice    Float
+  optionPrice    Float
+  stockPrice     Float
+  tradeDate      DateTime    @db.Timestamptz(6)
+  expiration     DateTime    @db.Timestamptz(6)
+  iv             Float?
+  symbol         String
+  tradeId        String
+  trade          SavedTrade? @relation(fields: [tradeId], references: [id])
+  userId         String
+  user           User        @relation(fields: [userId], references: [id])
+}
+
+model SavedEquity {
+  id       String      @id @default(cuid())
+  position Position
+  shares   Int
+  symbol   String
+  tradeId  String      @unique
+  trade    SavedTrade? @relation(fields: [tradeId], references: [id])
+  userId   String
+  user     User        @relation(fields: [userId], references: [id])
+}
+
+model SavedTrade {
+  id        String        @id @default(cuid())
+  name      String
+  pop       Float?
+  netCredit Float?
+  options   SavedOption[]
+  equity    SavedEquity?
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+}

@@ -1,0 +1,80 @@
+@import '../../../../theme/common';
+@import '../../../primitives/Typo/Typo.module';
+
+.table {
+  @include table;
+  width: 100%;
+  max-width: 32em;
+
+  th {
+    font-weight: $font-weight-medium;
+  }
+  td,
+  th {
+    &:not(&:first-of-type) {
+      padding-left: #{$pad-1-2 / 2};
+    }
+    &:first-of-type {
+      padding-left: $pad-1-2;
+    }
+    &:not(&:last-of-type) {
+      padding-right: #{$pad-1-2 / 2};
+    }
+    &:last-of-type {
+      padding-right: $pad-1-2;
+    }
+  }
+  tr {
+    &.rowTotal td {
+      border-top: $border-table;
+    }
+    &.grandTotal td {
+      border-top: 1px double $col-panel-contrast-a50;
+    }
+  }
+}
+
+.positionDetail {
+  &.--is-mobile .label:not(.--back-link) {
+    @extend .content-detail;
+  }
+  &:not(&.--is-mobile) .label:not(.--back-link) {
+    @extend .content-pragmatic;
+  }
+  &.--is-calculating {
+    .label,
+    th {
+      opacity: $col-opacity-pending;
+    }
+  }
+}
+
+.titleHeading {
+  padding-right: 0;
+  @include tablet-plus {
+    min-width: 20.8em;
+  }
+}
+
+.label {
+  font-weight: $font-weight-light;
+
+  &.--id-qty {
+    min-width: 4.6em;
+  }
+  &.--id-price {
+    min-width: 4.5em;
+  }
+  &.--id-total {
+    min-width: 6.5em;
+  }
+}
+
+.backArrow {
+  @include triangle('left', currentColor, 0.4em);
+}
+
+.closeBtn {
+  @include clickable;
+  color: $col-panel-contrast;
+}

@@ -1,0 +1,46 @@
+@import '../../../../theme/functions';
+@import '../../../../theme/common';
+
+.results {
+  max-width: 100%;
+  display: inline-block;
+  @include mobile-only {
+    max-width: calc(100% + #{$pad * 2});
+    @include marginHorizontal(#{-$pad});
+  }
+  @include tablet-plus {
+    &.fullWidth {
+      width: 100%;
+    }
+  }
+}
+.overTop {
+  position: relative;
+  z-index: $zidx-dropdowns;
+}
+.hasMargin {
+  @include marginHorizontal(#{$pad});
+  @include tablet-plus {
+    @include marginHorizontal(#{$pad-2});
+  }
+}
+.toolbarTop {
+  justify-content: space-between;
+  @include tablet-plus {
+    justify-content: flex-start;
+  }
+  margin-bottom: $pad-1-3;
+}
+
+.toolbarBottom {
+  > ._item:not(:first-child) {
+    margin-left: 20px;
+  }
+}
+
+.matrix-scroll-ctnr {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

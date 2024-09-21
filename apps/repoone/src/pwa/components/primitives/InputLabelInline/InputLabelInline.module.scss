@@ -1,0 +1,10 @@
+@import '../../../theme/functions';
+
+.label {
+  &:not(.--disabled) {
+    color: $col-content;
+  }
+  &.--disabled {
+    color: $col-content-disabled;
+  }
+}

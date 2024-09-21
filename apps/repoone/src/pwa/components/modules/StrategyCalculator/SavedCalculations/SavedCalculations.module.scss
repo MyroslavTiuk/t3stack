@@ -1,0 +1,90 @@
+@import '../../../../theme/functions';
+@import '../../../primitives/Typo/Typo.module';
+
+.container {
+  min-height: calc(100vh - #{2 * $pad} - 1rem);
+  > ._inner {
+    height: 100%;
+    > ._ {
+      min-height: 12em;
+      > ._symbolGroupCtnr {
+        > ._symbolGroup {
+          > ._calcHolder {
+            &.--selected {
+              background-color: $col-light;
+              z-index: $zidx-foreground;
+              box-shadow: 0 0 3px 0 #00000033;
+            }
+            @include mobile-only {
+              @include paddingVertical($pad-1-3);
+              border-top: 1px solid $col-panel;
+              &:last-of-type {
+                border-bottom: 1px solid $col-panel;
+              }
+            }
+            &:hover {
+              &:not(.--selected) {
+                background-color: $col-mid-overlay;
+              }
+              > ._close {
+                visibility: visible;
+              }
+            }
+            > ._close {
+              @include clickable;
+              @include non-touch-screen {
+                visibility: hidden;
+              }
+              color: $col-error;
+            }
+            > ._calculation {
+              > ._link {
+                display: block;
+                @extend .content-pragmatic;
+                @include clickable-text--subtle;
+                @include paddingVertical($pad-1-3);
+                text-decoration: underline;
+                text-decoration-color: transparentize($col-link, 0.66);
+
+                &.--selected {
+                  font-weight: $font-weight-bold;
+                  text-decoration: none;
+                }
+                &:not(.--selected) {
+                  > ._text {
+                    color: $col-link-dk;
+                  }
+                }
+                > ._text {
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: flex-start;
+                  align-items: baseline;
+                  > ._stratName {
+                    margin-left: 0.25em;
+                    color: $col-content-caption;
+                    text-decoration-color: transparentize(
+                      $col-content-caption,
+                      0.66
+                    );
+                    white-space: nowrap;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include touch-screen {
+  .previewHoverToggle {
+    display: none;
+  }
+}
+
+.hintBox {
+  background-color: $col-panel-contrast-a08;
+}

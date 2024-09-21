@@ -1,0 +1,86 @@
+@import '../../../../theme/common';
+
+$shadow-color: rgba($col-bg-dark, 0.08);
+
+.mobileMenu {
+  > ._inner {
+    padding: {
+      left: $pad-1-3;
+      right: $mobile-horizontal-padding;
+      top: $pad-1-3;
+    }
+    border-bottom: $pad-1-3 solid $col-light;
+    background-color: $col-light-dk1;
+    box-shadow: inset 0px -1px 1px $shadow-color;
+
+    > ._tab {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: #{$mobile-strat-nav-height - $pad-1-3};
+      transition: background-color $txn-swift;
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
+
+      &.--disabled {
+        color: $col-content-disabled;
+        > ._link {
+          color: $col-content-disabled;
+        }
+      }
+      &.--selected {
+        transition: background-color $txn-swift;
+        background-color: $col-light;
+        box-shadow: -1.5px -1.5px 1.5px $shadow-color,
+          1.5px -1.5px 1.5px $shadow-color;
+        > ._link {
+          color: $col-content;
+          font-weight: $font-weight-semibold;
+          opacity: 1;
+        }
+      }
+      :not(.--selected) {
+        @include clickable;
+        > ._link {
+          opacity: 0.8;
+          color: $col-content;
+        }
+      }
+
+      &.--has-update {
+        > ._link {
+          position: relative;
+          font-weight: $font-weight-extrabold;
+          animation: flash-tab 500ms;
+          &.--show-red-dot:after {
+            display: block;
+            position: absolute;
+            right: -8px;
+            top: 0;
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: $col-notification;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes flash-tab {
+  0% {
+    opacity: 0.3;
+    background-color: #ffffffff;
+  }
+  10% {
+    opacity: 0.3;
+    background-color: #ffffffff;
+  }
+  100% {
+    opacity: 1;
+    background-color: #ffffff00;
+  }
+}

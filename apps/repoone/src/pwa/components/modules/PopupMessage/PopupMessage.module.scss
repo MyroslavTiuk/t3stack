@@ -1,0 +1,17 @@
+@import '../../../theme/variables';
+
+.overlay {
+  position: fixed;
+  z-index: $zidx-overlay;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $col-dark-overlay;
+}
+
+.message-box {
+  position: relative;
+  z-index: $zidx-overlay-message;
+  background-color: $col-light;
+}

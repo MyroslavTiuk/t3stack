@@ -1,0 +1,21 @@
+@import '../../../theme/variables';
+
+.adBlurb {
+  font-size: 0.7rem;
+  color: lighten($col-content-caption, 20%);
+  &.--bottom {
+    margin-top: 2px;
+  }
+  &:not(.--bottom) {
+    margin-bottom: 2px;
+  }
+}
+
+.adUnit {
+  background-color: rgba($col-gray-50, 0.045);
+}
+
+.container {
+  max-width: calc(100vw - var(--scrollbarWidth));
+  overflow: hidden;
+}

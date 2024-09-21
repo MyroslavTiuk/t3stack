@@ -1,0 +1,82 @@
+﻿@import '../../../theme/common';
+
+.container {
+  position: fixed;
+  @include tablet-plus {
+    top: $pad;
+    right: $pad-2;
+  }
+  @include mobile-only {
+    bottom: $mobile-non-tappable-bottom-height - 20px;
+    left: $pad;
+    right: $pad;
+  }
+  z-index: $zidx-overlay-message;
+}
+
+// Note: keep in sync with const in ToastNotificationProvider.tsx
+$toast-duration: 2000ms;
+$toast-fade-out-duration-visual: $txn-slow;
+$toast-fade-out-duration-with-overlap: $txn-slow * (100/95);
+
+.itemContainer {
+  @include tablet-plus {
+    width: 300px;
+  }
+  padding: $pad;
+  padding-right: $pad-1-2;
+  box-shadow: 0 0 $pad-1-3 rgba(0, 0, 0, 0.2);
+  background-color: $col-light;
+  animation: toast-notification $txn-slow ease-out,
+    toast-notification-rev $toast-fade-out-duration-with-overlap ease-in #{$toast-duration -
+      $toast-fade-out-duration-visual} 1;
+  > ._message {
+    flex: 1;
+    margin-right: $pad-1-2;
+
+    &.--success {
+      color: $col-success;
+    }
+
+    &.--error {
+      color: $col-error;
+    }
+
+    &.--info {
+      color: $col-panel-contrast;
+    }
+  }
+
+  > ._closeIconContainer {
+    position: relative;
+    @include clickable;
+    @include mobile-only {
+      top: #{$pad-1-2 - $pad};
+    }
+    ._closeIcon {
+      color: $col-panel-contrast;
+      text-align: right;
+    }
+  }
+}
+
+@keyframes toast-notification {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-notification-rev {
+  0% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

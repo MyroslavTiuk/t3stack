@@ -1,0 +1,92 @@
+@import '../../../../theme/functions';
+
+.quickButtonsCtnr {
+  &.--sideBySide {
+    @include tablet-plus {
+      .recentCtnr {
+        float: right;
+        margin-top: -30px;
+      }
+    }
+  }
+  &:not(.--sideBySide) {
+    .recentCtnr {
+      margin-top: $pad;
+    }
+  }
+  @include mobile-only {
+    margin-top: $pad;
+  }
+}
+.recentCtnr {
+  background-color: $col-panel;
+}
+
+.recentListHeading {
+  color: $col-headings-2;
+}
+.recent {
+  padding-left: $pad;
+  list-style: square;
+}
+
+.symbol {
+  @include tablet-plus {
+    max-width: 20em;
+  }
+}
+
+.button {
+  //@include theme-light {
+  //  color: $col-content !important;
+  //}
+  @include tablet-plus {
+    &:not(.--full-width) {
+      @include paddingHorizontal($pad-2);
+    }
+  }
+  &.--full-width {
+    flex: 1 0 auto;
+    @include paddingHorizontal($pad-1-2);
+    .__icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  @include mobile-only {
+    @include paddingHorizontal($pad-1-2);
+    flex: 1 0 auto;
+  }
+  .__icon {
+    //color: $col-panel-contrast-dk12;
+    @include mobile-medium {
+      width: 32px;
+      height: 32px;
+    }
+    @include mobile-small {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}
+.or {
+  display: flex;
+  &:before {
+    content: '';
+    margin-right: $pad-1-2;
+    height: 1px;
+    width: 3em;
+    background-color: $col-guide;
+  }
+  &:after {
+    content: '';
+    margin-left: $pad-1-2;
+    height: 1px;
+    width: 3em;
+    background-color: $col-guide;
+  }
+}

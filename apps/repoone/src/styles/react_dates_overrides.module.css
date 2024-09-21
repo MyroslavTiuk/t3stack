@@ -1,0 +1,9 @@
+.CalendarDay__selected_span {
+  background: black;
+  color: white;
+  border: 1px solid black;
+}
+.CalendarDay__hovered_span:hover,
+.CalendarDay__hovered_span {
+  background: brown;
+}

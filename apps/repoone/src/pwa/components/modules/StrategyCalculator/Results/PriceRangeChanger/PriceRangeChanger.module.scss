@@ -1,0 +1,42 @@
+@import '../../../../../theme/common';
+
+.inputContainer {
+  flex-direction: row;
+  align-items: center;
+  cursor: auto;
+  > ._grayText {
+    color: $col-content-hint;
+  }
+  > ._input {
+    @include marginHorizontal(#{$pad-1-4});
+    &.--min {
+      max-width: toRem(70px);
+    }
+    &.--max {
+      max-width: toRem(54px);
+    }
+    input {
+      text-align: right;
+    }
+  }
+}
+.reset {
+  text-align: right;
+  @include resetIconTransformation;
+
+  font-weight: $font-weight-regular;
+  &.--auto {
+    &.--disabled {
+      color: $col-content-hint;
+      @include paddingHorizontal(calc(#{$pad-1-3} - 0.3em));
+    }
+
+    &:not(.--disabled) {
+      @include clickable;
+      //text-decoration: underline;
+      //text-decoration-style: dotted;
+      color: $col-link;
+      @include paddingHorizontal($pad-1-3);
+    }
+  }
+}

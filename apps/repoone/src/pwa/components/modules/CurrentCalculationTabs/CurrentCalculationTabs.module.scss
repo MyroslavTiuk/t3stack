@@ -1,0 +1,120 @@
+@import '../../../theme/common';
+
+$stripPad: $pad-1-2;
+
+@mixin stripClickable {
+  @include clickable;
+  padding: $stripPad;
+}
+
+.container {
+  position: relative;
+  margin-bottom: -$card-border-radius;
+
+  > ._bar {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
+    @include theme-light {
+      background-color: mix($col-light, $col-panel-contrast, 86);
+    }
+    @include theme-dark {
+      background-color: $col-bg-dark-lt2;
+    }
+    padding-right: $pad-2;
+    padding-left: #{$pad-2 - $stripPad};
+    padding-bottom: $card-border-radius;
+    //max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  > ._sub {
+    position: relative;
+    margin-top: -$card-border-radius;
+    min-height: 9px;
+    width: 100%;
+    @include mobile-only {
+      &:not(.--secondary) {
+        background-color: $col-light;
+      }
+      &.--secondary {
+        background-color: $col-light-dk1;
+      }
+    }
+    @include tablet-plus {
+      background-color: $col-light;
+    }
+    box-shadow: 0 -4px 3px -3px rgba(0, 0, 0, 0.12);
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
+  }
+}
+
+.portfolioLink {
+  display: flex;
+  > ._text {
+    font-size: toRem(16px);
+    font-weight: $font-weight-medium;
+    color: darken($col-content-hint, 35%);
+    padding: $stripPad;
+  }
+}
+
+.symbolCtnr {
+  display: flex;
+
+  > ._placeholder {
+    color: $col-content-disabled;
+    padding: $stripPad;
+  }
+  > ._symbol {
+    position: relative;
+
+    > ._text {
+      min-width: 3.5em;
+      position: relative;
+      z-index: $zidx-dropdowns + 1;
+      @include stripClickable;
+    }
+    > ._calcMenu {
+      display: none;
+      position: absolute;
+      z-index: $zidx-dropdowns;
+    }
+    &:hover,
+    &.--open {
+      > ._text {
+        background-color: $col-light;
+      }
+      > ._calcMenu {
+        display: block;
+        border-top-left-radius: 0;
+      }
+    }
+    &.--open {
+      > ._text {
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
+  &.--pinned {
+    &:not(:hover) {
+      > ._symbol.--open > ._calcMenu {
+        position: static;
+        display: block;
+      }
+    }
+    &:hover {
+      > ._symbol:hover > ._calcMenu {
+        position: static;
+        display: block;
+      }
+    }
+  }
+}
+
+.calcMenuCtnr {
+  padding: $pad $pad-2 #{$pad / 2};
+}

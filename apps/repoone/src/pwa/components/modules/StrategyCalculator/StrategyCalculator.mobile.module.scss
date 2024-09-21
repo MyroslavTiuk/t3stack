@@ -1,0 +1,24 @@
+@import '../../../theme/common';
+
+$anim-time: $txn-swift;
+
+.overlay {
+  top: $header-height;
+  z-index: $zidx-overlay;
+  background-color: $col-dark-overlay;
+}
+
+.menuCtnr {
+  top: $header-height;
+  bottom: 0;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+  width: 85%;
+  max-width: 300px;
+}
+
+.savedCalcsCtnr {
+  @include marginHorizontal($mobile-horizontal-padding);
+  padding-top: $header-item-padding-v + $header-padding-v;
+}

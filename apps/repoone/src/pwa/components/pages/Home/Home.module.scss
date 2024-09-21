@@ -1,0 +1,127 @@
+@import '../../../theme/common';
+
+$mob-hpad: $pad;
+$chooser-inset: $pad-4;
+
+.contentHeader {
+  &:not(.--short) {
+    min-height: 15rem;
+    padding: $pad-3 $mob-hpad;
+    @include tablet-plus {
+      padding: $pad-4 $pad-3 #{$chooser-inset + $pad-4};
+    }
+    background-position: center 70%;
+    @include tablet-plus {
+      background-position: center 85%;
+    }
+  }
+  &.--short {
+    min-height: 8em;
+    padding: $pad $mob-hpad;
+    @include tablet-plus {
+      padding: $pad-2 $pad-3 #{$chooser-inset + $pad-2};
+    }
+    background-position: center 70%;
+    @include tablet-plus {
+      background-position: center 68%;
+    }
+  }
+  border-top-left-radius: $card-border-radius;
+  border-top-right-radius: $card-border-radius;
+
+  background-color: $col-bg-dark-lt2;
+  background-image: url('/images/photos/aurora-torch-full.jpg');
+  background-size: cover;
+  .h2 {
+    color: $col-light;
+  }
+  .content-feature {
+    @include clickable;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: $font-weight-light;
+    color: $col-light !important;
+    text-decoration: none !important;
+    &:hover {
+      > ._text {
+        text-decoration: underline !important;
+      }
+    }
+
+    > ._dblArrow {
+      font-size: 50%;
+      transform: scaleY(2.5);
+      display: inline-block;
+      margin-right: $pad-1-3;
+    }
+  }
+}
+
+.quickStartRow {
+  margin-bottom: $pad;
+  > ._quickStart {
+    padding-top: $pad-2;
+    padding-bottom: $pad-2;
+    @include paddingHorizontal($mobile-horizontal-padding);
+
+    // Side-by-side
+    @include desktop-small-plus {
+      margin-right: $pad;
+    }
+    @include tablet-large-down {
+      margin-bottom: $pad;
+      max-width: calc(100vw - var(--scrollbarWidth));
+    }
+
+    @include tablet-plus {
+      @include paddingHorizontal($pad-2);
+
+      @include card-style(2);
+      border-radius: $card-border-radius;
+    }
+    @include mobile-only {
+      padding-bottom: $pad-2;
+    }
+  }
+  @include tablet-plus {
+    &.--offset {
+      margin-top: -#{$chooser-inset};
+    }
+    &:not(.--offset) {
+      margin-top: $pad-2;
+    }
+    @include paddingHorizontal($pad);
+  }
+
+  > ._ad {
+    width: 100%;
+    @include desktop-small-plus {
+      width: 300px;
+    }
+  }
+}
+
+.symbolLookup {
+  margin: $card-shadow-margin;
+}
+
+.strategy-selector-ctnr {
+  @include marginVertical($pad-2);
+  @include paddingVertical($pad-1-2);
+  // * 1/2 Padding is included in StrategySelector
+  @include paddingHorizontal(#{$pad - $pad-1-2});
+
+  @include tablet-plus {
+    $m-h: $pad;
+    @include marginHorizontal($m-h);
+    @include paddingHorizontal(
+      calc(#{$pad-3} - #{$m-h} - #{$card-inset-border-width})
+    );
+  }
+}
+
+// * Note: order is important here, to overwrite content-header border radius
+.no-radius {
+  border-radius: 0;
+}
